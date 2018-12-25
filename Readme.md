@@ -3,18 +3,24 @@ to learn Category Theory, but being that I'm not in an academic setting and this
 something economists usually do, I was on my own with the textbooks.
 
 Here are my notes. Some would be very obvious to a mathematician, but are sufficiently
-outside my usual way of thinking that I felt them worth clarifying to myself.
+outside my usual way of thinking that I felt them worth clarifying to myself, and writing
+down to verify I understand them clearly. I made them public because maybe, if you're also
+somebody who knows a relatively good amount of math but is not a mathematician, they may
+be useful to you too.
 
 Math is _extremely_ vocabulary-heavy. Every statement, every theorem, is of the form
 _define a thing, then define another thing; these things are related via a relationship
 we have defined_. You could conceivably read a book in a language you don't speak by
 looking up every word, but if you hope to make any progress
-in reasonable time you will need to know most of the vocabulary without thinking too much
+in reasonable time you will need to know the basic vocabulary without thinking too much
 about it. So much of the content in this repository is in the form of flash cards. Keeping
 to the spirit of mathematics, the great majority of cards cover definitions.
 
 This repository, then, includes a document of general conceptual notes to myself, in
 `cat_notes.tex`, and a much longer set of flash cards, in `cat_cards.tex`.
+
+License: CC-BY-NC-SA.
+
 
 #### Technical
 Everything is in LaTeX; I have no idea how else one would do this. If you have

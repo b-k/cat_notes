@@ -1,6 +1,7 @@
 
 doc:
 	xelatex cat_notes.tex
+	xelatex cat_notes.tex
 
 cards:
 	python ./go.py
