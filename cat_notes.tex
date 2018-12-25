@@ -1,0 +1,89 @@
+\documentclass[11pt]{article}
+\usepackage{amssymb,amsmath,tikz-cd,xspace}
+\usepackage[T1]{fontenc}
+
+\begin{document}
+\input{tex.macros}
+
+\section{Bundles}
+We're used to thinking in terms of sets comprising atomic elements, but
+most of the things to follow are a bundle of parts:
+
+\items{
+    \item {\em Magma}: A set $S$ and a function $f:S\to S$.
+    \item {\em Preorder}: A set $S$ and a binary relation $\leq$. (See flash cards for
+the formal definition)
+    \item {\em Graph}: A collection $(V, A, src, tgt)$:
+    \items{
+        \item $V$ a set (vertices)
+        \item $A$ a set (arrows)
+        \item $src:A\to V$ a function giving arrow heads
+        \item $tgt:A\to V$ a function giving arrow tails
+    }
+}
+
+Authors who write in object-oriented programming languages will recognize this
+use of {\em object} to mean a structure of elements, some of which could be verbs.
+
+\subsection{Those object-function pairs}
+
+\items{
+    \item {\em Magma}: A set $S$ and a function $f:S\to S$ (so $f(s)\in S$).
+    \item {\em Semigroup}: A magma where $f$ is associative: $f(a, f(b,c))=f(f(a, b),c)$.
+    \item {\em Monoid}: A semigroup with an identity element, $f(id)=id$.
+    \item {\em Group}: A monoid where every element has an inverse: $\forall x\in S$, $\exists x_{inv}$ $\ni f(x, x_{inv}) = id$.
+}
+
+Associativity and identity are going to be part of the definition of categories,
+so there won't be a lot of discussion of things on the list before monoids.
+Groups give a strong sense of symmetry, and so are reserved for contexts where
+reversibility or symmetry makes sense.
+
+\section{Leveling up}
+
+A function $f:A\to B$, aka a mapping, assigns a value to all of the elements in $A$ to
+some element(s) in $B$. Note that if $A=\emptyset$ then you still have a function, though
+it is vacuous.
+
+We can draw this function via arrows, maybe
+
+\Comdiag{
+    a_1 \ar[rd] \& b_1\\
+    a_2 \ar[r] \& b_2\\
+    a_3 \ar[r] \& b_3\\
+}
+
+Here, the nodes in the graph are single elements in the sets.
+
+The function notation $f:A\to B$ is itself a tiny graph. If there were also a function
+$g:C\to B$, we could construct a diagram that looks like the above element-by-element graph:
+
+\Comdiag{A \ar[r,"f"]\& B\\
+C \ar[ru, "g"] 
+}
+So we've gone up a level: each node-arrow-node set could be cracked open to reveal the
+sort of element-by-element diagram we had above. A closed function $f:A\to A$ maps to its
+own set:
+
+\Comdiag{A\ar[loop right]}
+
+We've zoomed out from nodes being elements to being sets of elements; the natural next
+step is to generalize the arrows to being sets of arrows. Consider the collections of all
+mappings of the form $f:A\to B$. In the first diagram with three elements in $A$ and
+three in $B$, the collection could have nine elements---or fewer, our choice. Sets
+use capitals and their elements lower case $(s\in S)$, so let the collection of
+lower-case functions be $F$; we now have
+
+\Comdiag{A \ar[r,"F"]\& B}
+
+I think of $F$ as a bundle of quivering wires, each with its own power. If this were anime
+they'd be tentacles. But there is indeed a lot of power there. With \Re representing the
+real numbers as usual, the diagram 
+\Comdiag{\Re\ar[loop right]}
+now represents all real-valued functions.
+
+
+
+
+
+\end{document}
