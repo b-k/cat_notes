@@ -1,0 +1,678 @@
+\documentclass[onecard,frame]{flashcards}
+
+\cardfrontstyle[\large\slshape]{headings}
+\cardbackstyle{empty}
+\cardfrontfoot{Category Theory}
+
+%\usepackage{amsfonts}
+\usepackage{amssymb,amsmath,tikz-cd,xspace}
+\usepackage[T1]{fontenc}
+
+\begin{document}
+
+\input{tex.macros}
+
+\long\def\Comdiag#1{
+\begin{center}
+\begin{tikzcd}[ampersand replacement=\&]
+#1
+\end{tikzcd}
+\end{center}
+}
+
+\def\Hom#1{\ensuremath {\rm Hom}_{\rm \bf #1}}
+
+\Card[Intro]{Author, copyleft}{Ben Klemens, CC BY/SA/NC}
+
+\Card{Domain of $f$}{ For $f:X\to Y$, $X$.}
+\Card{Codomain of $f$}{ For $f:X\to Y$, $Y$.}
+
+\Card{Composition of $f$ and $g$}{
+As a diagram,
+\Comdiag{
+X \arrow[r,"f"] \&Y \arrow[r, "g"] \& Z
+}
+
+Written $g \circ f: X\to Z$.
+}
+
+\Card{$\Hom{set}(X,Y)$}{The set of functions $X\to Y$}
+
+\Card{Equality of $f$ and $g$}{
+    $f:X\to Y$ and $g:X\to Y$ are equal iff $f(x)=g(x), \forall x \in X$
+}
+
+\Card{Identity function on $X$}{
+    ${\rm id}_X:X\to X$ such that ${\rm id}_X(x) = x, \forall x\in X$.
+}
+
+\Card{Isomorphism}{
+A one-to-one correspondence.
+
+\Comdiag{
+    X \arrow[r,"\cong"] \&Y
+}
+There exists a function $g:Y\to X$ such that
+$g \circ f = {\rm id}_X$ and
+$f \circ g = {\rm id}_Y$.
+}
+
+\Card[Characteristics]{Properties of an isomorphism}{
+\items{
+\item Reflexive: Any set is isomorphic to itself.
+\item Commutative: if $f:A\to B$ has inverse $g:B\to A$, then $g$ has inverse $f$.
+\item Transitive: $A$ isomorphic to $B$ and $B$ isomorphic to $C$ $\Rightarrow$ $A$ is
+isomorphic to $C$.
+}
+}
+
+\Card[Notation]{$\underline n$}{The set $\{1, 2,\dots n\}$}
+
+\Card{Cardinality of finite set $X$}{$|X| = n$ iff
+
+\Comdiag{
+    X \arrow[r,"\cong"] \&\underline n
+}
+}
+
+\Card[Lemma]{Cardinality of $A$ and $B$  given \begin{tikzcd}[ampersand replacement=\&]
+    A \arrow[r,"\cong"] \&B
+\end{tikzcd}
+}{|A| = |B|}
+
+\Card{Injective}{
+    For $F:A\to B$, $f(x) = f(y)$ only if $x=y$: points map to different values.}
+
+
+\Card{A diagram commutes}{
+    All paths from top left to bottom right are equal. E.g.,
+    \Comdiag{
+    A \ar[r, "f"] \ar[dr,"h"'] \& B\ar[d, "g"]\\
+            \& C
+    }
+    commutes iff $g\circ f = h$.
+}
+
+\Card{Product of two sets}{
+    The set of ordered pairs. For sets $X$ and $Y$,
+    $$\{(x,y)|x\in X, y\in Y\}.$$
+}
+
+\Card{Projection function $\pi_i$}{
+    Given a product $X\times Y$ with elements $(x, y)$, $\pi_1: X\times Y \to X$ produces
+    $x$. Similarly for $\pi_2$.
+
+    \Comdiag{
+        \& X \times Y \ar[dl,"\pi_1"'] \ar[dr,"\pi_2"]\\
+        X \&  \& Y 
+    }
+}
+
+\Card{Universal property of projections}{
+    For any set A and any $f:A\to X$ and $g:A\to Y$, $\exists$ a unique $f\times g$ so this commutes:
+    \Comdiag{
+        \& X\times Y \ar[dl,"\pi_1"'] \ar[dr,"\pi_2"] \\
+    X \& \& Y \\
+    \& A \ar[ul, "\forall f"] \ar[ur, "\forall g"'] \ar[uu, dashrightarrow, "f\times g"]
+    }
+
+}
+
+\Card[Notation]{$X\sqcup Y$}{
+    The union of the elements of $X$ and $Y$, via indicator functions $i_1: X\to X\sqcup Y$ and $i_2$:
+
+    \Comdiag{
+        X \ar[dr,"i_1"'] \& \& Y \ar[dl,"i_2"] \\
+        \& X\sqcup Y
+    }
+    Elements of $X\sqcup Y$ have a source indicator, so if $z\in X$ and $z\in Y$,
+    $i_1z, i_2z \in X\sqcup Y$.
+}
+
+\Card{Universal property of coproducts}{
+    For any $f:X\to A$, $g:Y\to A$, $\exists$ a unique $f\sqcup g:X\sqcup Y\to A$:
+    \Comdiag{
+        \& A \\
+        X \ar[dr,"i_1"'] \ar[ur,"\forall f"] \& \& Y \ar[dl,"i_2"] \ar[ul,"\forall g"']\\
+        \& X\sqcup Y \ar[uu, dashrightarrow, "f\sqcup g"]
+    }
+}
+
+\Card{Fiber product}{
+    Given \Comdiag{
+        \& Y \ar[d,"g"]\\
+        X \ar[r, "f"] \& Z
+    }
+    $X \times_Z Y \equiv \{(x,w,y)| f(x)=w=g(y)\}$.
+}
+
+\Card{Pullback}{
+    Any set $W$ isomorphic to the fiber product $X\times_Z Y$, giving the commutative diagram
+    \Comdiag{
+        W \ar[r, "\pi_2"] \ar[d, "\pi_1"'] \& Y \ar[d,"g"]\\
+        X \ar[r, "f"] \& Z
+    }
+}
+
+\Card{Universal property for pullbacks}{
+    Given $t:X\to Z$ and $u:Y\to Z$,
+    $\exists$ a unique function $f\times_Z g: A\to X\times_z Y$ such that
+    \Comdiag{
+        X\times_Z Y \arrow[drr, bend left, "\pi_1"] \arrow[ddr, bend right, "\pi_2"] \& \& \\
+        \& A\arrow[ul, dotted, "f\times_Z g" description] \arrow[r, "\forall f"] \arrow[d, "\forall g"]
+        \& Y \arrow[d, "u"] \\
+        \& X \arrow[r, "t"] \& Z
+    }
+}
+
+\Card{Coequalizer}{
+    Given the equivalence relation $\{(f(x), g(x))|x\in X\}\subseteq Y\times Y$,
+$Coeq(f,g)\equiv Y \backslash f(x)\sim g(x)$
+    \Comdiag{
+    Z \arrow[r, shift left,"f"] \arrow[r,"g"'] \&Y \arrow[r] \& Coeq(f,g)
+    }
+}
+
+\Card{Initial set}{
+    A set $S$ such that for every set $A$ there exists a unique mapping $S\to A$.
+}
+
+\Card{Retract section, retract projection}{
+    Given $f:X\to Y$, $g:Y\to X$ and $g\circ f =id_X$,
+    \items{
+        \item $f$ is a retract section
+        \item $g$ is a retract projection
+    }
+}
+
+\Card[Notation]{$Y^X$}{$Y^X\equiv \Hom{Set}(X, Y)$.}
+
+\Card[Proposition]{Currying}{
+    For any sets $A, X, Y$, $\exists$ a bijection
+$$C: \Hom{Set}(X\times A, Y) \to \Hom{Set}(X, \Hom{Set}(A, Y))$$
+i.e.,
+$$C: Y^{X\times A} \to Y^{A^X}$$
+}
+
+\Card{Span}{
+    \Comdiag{
+         \& R \ar[dl, "f"'] \ar[dr, "g"]\\
+        X\&   \& Y
+    }
+
+}
+
+\Card{Composite Span}{
+    Two spans joined by their fiber product.
+
+    \Comdiag{
+        \& \& R\times_Y R' \ar[dl] \ar[dr]\\
+         \& R \ar[dl, "f"'] \ar[dr, "g"]\& \& R' \ar[dl, "f'"'] \ar[dr, "g'"]\\
+        X\&   \& Y \& \& Z
+    }
+
+}
+
+\Card{Equalizer}{
+$Eq(f, g)\equiv {x\in X|f(x)=f(y)}$.
+
+    \Comdiag{Eq(f, g) \ar[r] \& X \ar[r, shift left, "f"] \ar[r, "g"'] \& Y
+    }
+}
+
+\Card{Terminal set}{
+    A set $S$ such that for every set $X$, there exists a unique mapping $f:X\to S$.
+}
+
+\Card{Limit}{
+    The unique mapping to sets (e.g., $X$ and $Y$) that allows a given cone diagram to
+    commute (see the universal property cards), with a unique mapping to corresponding
+    mappings after transformations of $X$ and $Y$ ($f(x)$, $g(y)$). 
+}
+
+\Card[Notation]{$x\sim_R y$ or $x\sim y$}{
+    The equivalence relation, $R\subseteq X\times X$, where
+    \items{
+        \item $(x,x)\in R$ (reflexive)
+        \item $(x,y)\in R \Leftrightarrow (y, x)\in R$ (symmetry)
+        \item $(x,y)\in R + (y, z)\in R \rightarrow (y, z)\in R$ (transitivity)
+    }
+    $x\sim_R y \equiv (x,y) \in R.$
+}
+
+\Card{Equivalence class}{
+    Given an equivalence relation $\sim$ on the set $X$, a set $A$ where
+    \items{
+        \item $A\neq \emptyset$
+        \item $x\in A$ and $y\in A  \rightarrow x\sim y$
+        \item $x\in A$ and $x\sim y  \rightarrow y\in A$
+    }
+}
+
+\Card{Quotient $X\backslash \sim$}{The set of equivalence classes of $\sim$ in $X$.}
+
+\Card{Fiber sum}{
+    A {\em pushout}: given $f:Z\to X$ and  $g:Z\to Y$, the fiber sum $X\sqcup_Z Y\equiv (X\sqcup Z \sqcup
+Y)\backslash \sim$ where $z\sim f(z)$ and $z\sim g(z)$. So,
+
+    \Comdiag{
+        Z \ar[d, "f"'] \ar[r, "g"] \& Y \ar[d, "i_2"] \\
+        X \ar[r, "i_1"] \& X\sqcup_Z Y
+    }
+}
+
+\Card{Universal property for pushouts}{
+    \small{Given $t:Z\to X$ and $u:Z\to Y$,
+    $\exists$ a unique function $f\sqcup_Z g:  X\sqcup_z Y \to A$ such that
+    \Comdiag{
+        Z \ar[d, "t"'] \ar[r, "u"] \& Y \ar[d, "g"] \ar[ddr, bend left, "i_2"] \\
+        X \ar[r, "f"] \ar[drr, bend right, "i_1"] \& A \\
+    \& \& X\sqcup_Z Y \arrow[ul, dotted, "f\sqcup_Z g" description]
+    }
+    So, $f = (f\sqcup_Z g)\circ i_1$ and $g = (f\sqcup_Z g)\circ i_2$.}
+}
+
+\Card{Power set}{For a given set $S$, the set of subsets of $S$. Here notated ${\mathbb P}(S)$}
+
+\card{Notation}{$\Omega$}{The set $\{$True, False $\}$}
+
+\Card[Proposition]{For an arbitrary set $S$, how do $\Omega$ and ${\mathbb P}(S)$ relate?}{
+$\exists$ an isomporphism $f:$\Comdiag{ \Hom{Set}(S,\Omega) \arrow[r,"\cong"] \& {\mathbb P}(S) }
+}
+
+\Card{Characteristic function}{For a set $S'\subseteq S$, the mapping $S\to \Omega$
+marking an element true iff it is in $S'$.}
+
+\Card{Epimorphism}{
+    $F$ is {\em epic} or an {\em epi} iff $g_1 f = g_2 f \Rightarrow g_1 = g_2$.
+
+    \Comdiag{
+    X \arrow[r,"f"] \&Y \arrow[r, shift left,"g_1"] \arrow[r,"g_2"'] \& Z
+    }
+
+    $f$ is injective iff it is epic.
+}
+
+\Card{Monomorphism}{
+    $F$ is {\em monic} or {\em mono} iff $f g_1 = f g_2 \Rightarrow g_1 = g_2$.
+
+    \Comdiag{
+    Z \arrow[r, shift left,"g_1"] \arrow[r,"g_2"'] \&Y \arrow[r,"f"] \& X
+    }
+
+    $f$ is surjective iff it is monic.
+}
+
+\Card{Isomorphism}{
+    A mapping that is epic and monic.
+}
+
+\Card[Theorem]{ If $f$ is monomorphic, what can we say about $f'$?
+    \Comdiag{
+       X\times_Z Y \ar[r, "f'"] \ar[d, "g"'] \& Y \ar[d,"g'"]\\
+        X \ar[r, "f"] \& Z
+    }
+} {
+    $f'$ is also monomorphic. Prove via the defn of mononomrpism via $B$ and $X$ (so $c=d$), then the 
+    universal property of pullbacks to show $a=b$.
+    \Comdiag{
+        B \ar[r, shift left, "a"] \ar[r, "b"'] \ar[dr, shift left, "c"] \ar[dr, "d"'] \&
+        X\times_Z Y \ar[r, "f'"] \ar[d, "g"'] \& Y \ar[d,"g'"]\\
+        \&X \ar[r, "f"] \& Z
+    }
+}
+
+\Card[Theorem]{
+    If $f$ is epic, what can we say about $f'$?
+    \Comdiag{
+        Z \ar[d, "g"'] \ar[r, "f"] \& Y \ar[d, "g'"] \\
+        X \ar[r, "f'"] \& X\sqcup_Z Y
+    }
+} {$f'$ is also epic. Prove via the defn of epimorpism via $B$ and $Y$ (so $a=b$), then the 
+    universal property of pullbacks to show $c=d$.
+    \Comdiag{
+        Z \ar[r, "f'"] \ar[d, "g"'] \& Y \ar[d,"g'"]\&
+            B \ar[l, shift left, "b"] \ar[l, "a"'] \ar[dl, shift left, "d"] \ar[dl, "c"'] \\
+        X \ar[r, "f'"] \& X\sqcup_Z Y
+    }
+}
+
+\Card[Corollary]{
+    What is $A$ in
+    \Comdiag{A \ar[r, "f'"] \ar[d, "i"] \& \{1\} \ar[d, "True"]\\
+        X \ar[r, "f"'] \& \Omega
+    }
+}{
+    $X\times_{\Omega}\{1\}$
+}
+
+\Card{Multiset}{
+    A sequence $X\equiv (E,B,\pi)$ where $E$ and $B$ are sets and $\pi : E \to B$ is a surjective function. 
+}
+
+\Card[Question]{
+    Given two multisets $(E,B, \pi)$ and $(E',B', \pi')$, what would a mapping
+    between them look like?
+}{
+    A pair of functions $f_1:E\to E'$ and $f_2:B\to B'$ such that
+    \Comdiag{E \ar[r, "f_1"] \ar[d, "\pi"'] \& E'  \ar[d, "\pi'"]\\
+        B \ar[r, "f_2"'] \& B'
+    }
+}
+
+
+\Card{Pseudomultiset}{
+    A multiset where $\pi$ is not surjective.
+    A sequence $X\equiv (E,B,\pi)$ where $E$ and $B$ are sets and $\pi : E \to B$. 
+}
+
+
+\Card{Relative set over B}{A pair $(E, \pi)$ with $\pi:E \to R$.}
+
+\Card[Question]{
+    Given two relative sets over the same $B$,$(E, \pi)$ and $(E', \pi')$, what would a mapping
+    between them look like?
+}{
+    \Comdiag{E \ar[rr, "f_1"] \ar[dr, "\pi"'] \& \& E'  \ar[dl, "\pi'"]\\
+        \& B
+    }
+}
+
+\Card{$A$-indexed set}{A collection of sets $S_a$, one for each $a\in A$.}
+
+
+\Card{Closed mapping}{For any element $x\in S$, $f(x)\in S$.}
+
+\Card{Magma}{A set with a closed mapping.}
+
+\Card{Associative mapping}{
+    A mapping $f:S\times S$ is associative iff $f(s_1, f(s_2, s_3)) = f(f(s_1, s_2), s_3)$.
+}
+
+\Card{Semigroup}{A set with a closed, associative mapping.
+
+A magma whose operation is also associative.}
+
+\Card{Monoid}{
+    A set with an operation that is closed and associative,
+    and an identity element where $f(x)=x$.
+
+    I.e., a semigroup with an identity.
+}
+
+\Card{Trivial monoid}{
+    A monoid over a set whose sole element is the identity, $(\{id\}, id, \cdot)$.
+
+    Written as $\underline 1$.
+}
+
+\Card{List in a set $X$}{
+    A pair $(n, f)$, where $f:\underline n \to X$. May be denoted as
+    $(n, f) = [f(1), f(2), \dots, f(n)]$.
+}
+
+\Card[notation]{Concatenation of lists, $++$}{
+    Given $L=(n, f)$ and $L'=(n',f')$ a new list $L++L' =(n+n', f++f')$ where $f++f'$
+    matches $f(x)$ for $x\leq n$, then $f'(x-n)$ for $x>n$.
+}
+
+\Card{Free monoid generated by a set $X$}{
+    A triplet $($List$(X), [ ], ++)$, where the first element is the set of all lists ($n,
+    f)$ where $n=|X|$.
+}
+
+\Card{Presented monoid}{
+    Let $\sim$ indicate the equivalence relation on List$(G)$ (the set of all lists
+    on $G$) generated by $(x\cdot f(i)\cdot y \sim x\cdot f'(i)\cdot y)$, where $f$
+    and $f'$ are in List$(G)$.
+
+    The monoid presented by the generator $G$ and relations $f(i), f'(i)$ is the set
+    List$(G)\backslash \sim$, the identity $[ ]$, and the operation $++$.
+}
+
+\Card{Cyclic monoid}{
+    A presented monoid based on a generator with a single element.
+}
+
+\Card{Monoid action}{
+    Given a monoid $(M, id, \cdot)$ and a set $S$, the action $\circlearrowleft:M\times M
+    \to S$ satisfies
+    \items{
+        \item $id \circlearrowleft s = s, s\in S$
+        \item $m \circlearrowleft (n \circlearrowleft s) = (m\cdot n) \circlearrowleft s$
+    }
+}
+
+\Card{Finite state machine}{
+    \items{
+    \item A set of symbols, the input alphabet $\Sigma$
+    \item A set of states $S$
+    \item A transition function $\delta: \Sigma \times S\to S$
+    \item An initial state $\in S$
+    \item A set of final states $\subseteq S$
+    }
+}
+
+\Card[Proposition]{How is a finite state machine expressed via monoids?}{
+    Given $\delta: \Sigma \times S \to S$, let the monoid be the free monoid based on
+    List$(\Sigma)$; then the state machine is an action of the free monoid on $S$.
+}
+
+\card{Monoid homomorphism}{
+    For $(S, id, \cdot)$ and $(S', id', \cdot')$, a M. H. $f:S\to S'$ has $f(id)=id'$ and
+$f(s_1\cdot s_2) = f(s_1)\cdot' f(s_2)$.
+}
+
+\card{$\Hom{Mon}(M,M')$}{
+    The set of monoid homomorphisms $f:M\to M'$.
+}
+
+\card{Trivial monoid homomrphism}{
+    Given the trivial monoid $\underline 1$, $\exists$ monoid homomorphisms $f_1:M\to
+    \underline 1$ and $f_2: \underline 1 \to M$
+}
+
+\card[Proposition]{Given $M=({\mathbb Z}, 0, +)$ and $M'=({\mathbb N}, 0, +)$, what monoid
+homomorphisms exist}{
+    Only the trivial homomorphism.
+}
+
+\card[Notation]{$\Delta_f(\alpha)$}{
+    Chain the monoid homomorphism $f:M\to M'$ and the action $\alpha:(S, M') \to S$ to
+    generate a new action $\Delta_f(\alpha): (S,M) \to S$. 
+
+    Named {\em the restriction of scalars along $f$}, due to an application to ${\mathbb R}$ and ${\mathbb C}$.
+}
+
+\card{Group}{
+    A set with a binary operation that is
+
+    \items{
+    \item    closed
+    \item    associative,
+    \item    has an identity, and
+    \item    has an inverse
+    }
+
+    I.e., a monoid where every element has an inverse.
+}
+
+\card{Graph}{
+    A collection $(V, A, src, tgt)$:
+    \items{
+    \item $V$ a set (vertices)
+    \item $A$ a set (arrows)
+    \item $src:A\to V$ a fn giving arrow heads
+    \item $tgt:A\to V$ a fn giving arrow tails
+    }
+}
+
+\card[Exercise]{Express a unidirectional bipartite graph via a commutative diagram with a span}{
+    The top triangle $A, L, src$ and bottom triangle $A, R, tgt$ commute:
+    \Comdiag{
+        \& L \ar[dr,"i_1"]\\
+    A \ar[ur, "f"] \ar[dr, "g"] \ar[rr, shift left,"src"] \ar[rr,"tgt"'] \& \& L \sqcup R \\
+        \& R \ar[ur,"i_2"]\\
+    }
+}
+
+\card{Graph homomorphism}{
+    Two functions $f_0:V\to V'$ and $f_1:A\to A'$ such that both $src$ and $tgt$ commute:
+
+    \Comdiag{
+    A \ar[r,"f_1"] \ar[d, "src"']\& A'  \ar[d, "src'"]  \& \& A \ar[r,"f_1"] \ar[d, "tgt"']\& A'  \ar[d, "tgt'"]  \\
+    V \ar[r,"f_0"] \& V' 
+    \& \& V \ar[r,"f_0"] \& V' 
+    }
+}
+
+\card{Binary relation}{For the set $X$, a subset $R\subseteq X\times X$.}
+
+\card[Notation]{$\leq$}{$s\leq s'$ iff $(s, s')\in R$, a binary relation $R\subseteq S\times S$.}
+
+\card{Preorder}{
+$\leq$ is a preorder iff
+    \items{
+    \item $s\leq s$ (reflexivity)
+    \item $s\leq s'$ and $s' \leq s'' \Rightarrow s\leq s''$ (transitivity)
+    }
+}
+
+\card{Partial order}{
+    A preorder with antisymmetry.
+
+    $\leq$ is a partial order iff
+    \items{
+    \item $s\leq s$ (reflexivity)
+    \item $s\leq s'$ and $s' \leq s'' \Rightarrow s\leq s''$ (transitivity)
+    \item $s\leq s'$ and $s' \leq s \Rightarrow s= s''$ (antisymmetry)
+    }
+}
+
+\card{Linear order}{
+    A partial order with comparability.
+
+    $\leq$ is a linear order iff
+    \items{
+    \item $s\leq s$ (reflexivity)
+    \item $s\leq s'$ and $s' \leq s'' \Rightarrow s\leq s''$ (transitivity)
+    \item $s\leq s'$ and $s' \leq s \Rightarrow s= s''$ (antisymmetry)
+    \item Either $s\leq s'$ or $s' \leq s$ (comparability)
+    }
+}
+
+\card{Clique in a preorder}{
+    For a preorder $(S, \leq)$, a set $C\in S$ such that for every $s, s' \in C$, $s\leq s'$.
+}
+
+\card{Preorder generated by a binary relation}{
+    Start with an aribtrary binary relation $R\subseteq S\times S$. 
+    Build the preorder generated by $R$, $R''$ via
+
+    \items{
+    \item $R'\equiv R \cup \{(s, s)| s\in S\}$ (make it reflexive),
+    \item $R''\equiv R' \cup \{(x, z)\in S\times S| (x,y), (y,z)\in S\times S\}$
+(make it transitive)
+    }
+}
+
+\card{For a preorder $(S, \leq)$, the meet of $a, b\in S$}{
+    An element $c$ such that
+    \items{
+    \item $c\leq a$ and $c\leq b$
+    \item For any $d\in S$, $d\leq a$ and $d\leq b \Rightarrow d\leq c$
+    }
+
+    Note that for the preorder $($set of sets$, \subseteq)$, $c$ is $a\wedge b$.
+}
+
+\card{For a preorder $(S, \leq)$, the join of $a, b\in S$}{
+    An element $c$ such that
+    \items{
+    \item $a\leq c$ and $b\leq c$
+    \item For any $d\in S$, $a\leq d$ and $b\leq d \Rightarrow c\leq d$
+    }
+
+    Note that for the preorder $($set of sets$, \subseteq)$, $c$ is $a\vee b$.
+}
+
+\card{Morphism of preorders}{
+    Given $(S, \leq)$ and $(S', \leq')$, a function $f:S\to S'$ such that
+    $$s_1\leq s_2 \Rightarrow f(s_1)\leq' f(s_2).$$
+}
+
+\card{Discrete preorder on $S$}{$$s\leq s' { \rm\ iff\ } s=s'.$$}
+
+\card{Indiscrete preorder on $S$}{$$s\leq s',\  \forall  s, s'\in S.$$}
+
+\card{Category}{
+    \items{
+    \item A collection of objects, $Ob({\cal C})$
+    \item $\forall x, y\in Ob({\cal C})$, the Hom-set $\Hom{\cal C}(x, y)$ listing morphisms $x\to y$
+    \item $\forall x\in Ob({\cal C})$, an identity morphism on $x$, $id_x \in \Hom{\cal C}(x, x)$
+    \item A composition formula that is associative and correctly handles the identitity morphisms,
+ $$\circ: \Hom{\cal C}(y, z) \times \Hom{\cal C}(x, y) \to \Hom{\cal C}(x, z)$$
+    }
+}
+
+\card[Sub-defintion]{Properties of $\circ$ for a category}{
+    \items{
+    \item For any $f:x\to y$, $f\circ id_x = f$ and $id_y \circ f = f$
+    \item Associativity: with $f:w\to x$, $g:x\to y$, $h:y\to z$, $$h\circ(g\circ f) = (h
+\circ g)\circ f$$
+    }
+
+}
+
+\card{The category {\bf Set}}{
+    \items{
+    \item The set of sets $S$
+    \item $\forall$ sets $X, Y\in S$, the set of mappings $f:X\to Y$,
+    \item including the identity morphism $id_x : X\to X$ for any $X\in S$.
+    \item The usual function composition formula
+    }
+}
+
+\card{The category {\bf Fin}}{
+    The category of sets with finite cardinality.
+    \items{
+    \item Objects are finite sets
+    \item Morphisms and composition formula are as with {\bf set}
+    }
+}
+
+\card{The category {\bf Mon}}{
+    \items{
+    \item The set of monoids $(M, id, \cdot)$
+    \item For any two monoids, the set of monoid homomorphisms between them.
+    \item Monoid homomorphisms are defined via functions $f:M\to M'$ and $g:M'\to M''$;
+        composing the functions to $g\circ f$ generates a morphism composition.
+    }
+}
+
+\card{The category {\bf Grp}}{
+    \items{
+    \item The set of groups $(M, id, \cdot)$ (i.e., monoids where $\cdot$ is invertible)
+    \item Morphisms and composition are defined as with {\bf Mon}
+    }
+}
+
+\card{The category {\bf PrO}}{
+    The set of preorders $(S, \leq)$, with the usual morphisms on preorders of the form
+$f:S\to S'$. Composition of functions induces composition of $\Hom(Preorders)$
+}
+
+\card{Isomorphism between objects in a category}{
+    A morphism $f:X\to Y$, $X,Y\in Ob({\cal C})$, such that $\exists G:Y\to X$ such that
+    $g\circ f = id_x$ and $f\circ g = id_y$.
+}
+
+\card{Endomorphism}{A mapping from an object to itself.}
+
+\card{Automorphism}{
+    An isomorphic mapping from an object to itself.
+
+    An endomorphism that is also an isomorphism.
+}
+
+\end{document}
