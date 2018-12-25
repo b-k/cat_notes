@@ -1,0 +1,42 @@
+%Potentially shared across files. Also, putting it in the .tex files would 
+%throw off go.py's card count.
+
+\def\AnAttribution{
+    The flash cards are based on
+    https://github.com/jasonu/flashcards , by Jason Underdown, on a CC-NC-SA license.
+    This definition of a card and some associated setup in catcards.tex may be the only
+    thing left from that repository, though. See that repository for some great
+    algebra, topology, and other card sets.
+}
+
+\def\Re{\ensuremath{{\mathbb R}\xspace}}
+
+\def\Hom#1{\ensuremath {\rm Hom}_{\rm \bf #1}}
+
+\newcommand{\Card}[3][Definition]{
+\begin{flashcard}[#1]{#2}
+\vspace*{\stretch{1}}
+#3
+\vspace*{\stretch{1}}
+\end{flashcard}
+}
+
+\def\card{\Card}
+
+\def\items#1{
+    \begin{itemize}
+    \setlength{\itemsep}{1pt} \setlength{\parskip}{0pt} \setlength{\parsep}{0pt}
+    #1
+    \end{itemize}
+}
+
+\long\def\Comdiag#1{
+\begin{center}
+\begin{tikzcd}[ampersand replacement=\&]
+#1
+\end{tikzcd}
+\end{center}
+}
+
+\def\Hom#1{\ensuremath {\rm Hom}_{\rm \bf #1}}
+

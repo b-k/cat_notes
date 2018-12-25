@@ -1,5 +1,5 @@
 \documentclass[11pt]{article}
-\usepackage{amssymb,amsmath,tikz-cd,xspace}
+\usepackage{amssymb,amsmath,tikz-cd,xspace, natbib}
 \usepackage[T1]{fontenc}
 
 \begin{document}
@@ -8,7 +8,9 @@
 \title{Category theory notes}
 \maketitle
 
-Please see the Readme file for motivation and context.
+Please see the Readme file for motivation and context. Right now the document only touches
+on and motivates what seem to be the key ideas pushed by the basic category theory
+textbooks I've been reading.
 
 \section{Bundles}\label{bundlesec}
 We're used to thinking in terms of sets comprising atomic elements, but
@@ -150,31 +152,66 @@ category of categories, ${\bf Cat}$, we can show that ${\bf Cat}\to {\bf Graph}$
 drawing a graph for the category \{${\bf Cat}, {\bf Graph}$\} to represent how categories and graphs relate.
 Mathematicians love this stuff.
 
-\section{Commuting, universals} It's already potentially interesting that we can
+\section{Where commuting gets us} It's already potentially interesting that we can
 express mappings between different concepts like orderings and graphs, but things don't get
-interesting until we have multiple paths to the same place. For example, here is a diagram
+interesting until we have multiple paths to the same place.
+
+
+For example,
+\citet{spivak:category} describes multisets as sets of elements $E$ with a set $B$ of
+symbol names, and a map $\pi:E\to B$. We may have another set of elements and symbols in
+another context, maybe a corpus in another language, so we'll need an element mapping
+$f_1:E\to E'$ and a symbol mapping $f_2:B\to B'$.
+
+Here is a diagram
 from the flash card ({\em qv}) on mapping a multiset $(E, B, \pi)$ to another:
 \Comdiag{E \ar[r, "f_1"] \ar[d, "\pi"'] \& E'  \ar[d, "\pi'"]\\
         B \ar[r, "f_2"'] \& B'
     }
-There are two paths from $E$ to $B'$: right then left, or down then right.
+
 The dictionary definition of {\em
 commute} is {\em to exchange}; in math circles, {\em commutativity} typically refers to
-reversing the order of things, like $x+y = y+x$. In this case, we can either apply the
-unprimed function $\pi$ to step from $E$ to $B$, then step from unprimed to primed; or we can
-do the priming step first and then apply $\pi'$.
+reversing the order of things, like $x+y = y+x$. In this case, we can 
+get from the original element set to the primed symbol set in two ways:
+either apply the symbol map $\pi$ first to get to $B$ and then step from the unprimed to
+primed corpus ($f_2\circ\pi(e)$), or first step to the primed corpus via $f_1$ and then
+map from $E$ to $B$ on that side ($\pi\circ f_1(e)$).
 
 When are both routes identical? This is often an interesting question in its own right.
 When each arrow is a plain function, a lot of nontrivial statements take this form.
 
-Considering this question when the arrows could be arbitrary sets of functions allows
-us to catalogue when some transformations are natural enough that they easily commute,
-and when there are objects that are commute-friendly and can appear in the full universe
-of diagrams of a certain shape.
+This example was at the set level, but one could do the same at the category level.
+If there is a mapping from one world to another where (apply internal function, then jump)
+produces the same outcome as (jump, then apply internal function), we call the jump across
+categories a {\em natural transformation}.
+
+Further, these diagrams chain together:
+
+\Comdiag{E \ar[r, "f_1"] \ar[d, "\pi"'] \& E'   \ar[r, "f_3"] \ar[d, "\pi'"] \& E'' \ar[d, "\pi''"]\\
+        B \ar[r, "f_2"'] \& B' \ar[r, "f_4"'] \&B''
+    }
+
+It is self-evident that if the left square and the right square commute, than any flow
+from upper left to lower right will be equivalent. This becomes especially interesting
+when we have mappings across different contexts: if we can map from multisets to preorders
+and preorders to graphs, we just got a multiset-to-graph generator for free.
 
 \subsection{Universal properties}
 Consider the cross product of two sets, $A\times B$. There is an obvious mapping from
-$A\times B \to A$---just drop the $B$ part---and $A\times B \to B$.
+$A\times B \to A$---just drop the $B$ part---and $A\times B \to B$. The shape of this as a
+diagram, with $\pi_1$ and $\pi_2$ being the {\em drop one part} functions:
+
+\Comdiag{
+        \& X\times Y \ar[dl,"\pi_1"'] \ar[dr,"\pi_2"] \\
+    X \& \& Y \\
+}
+
+This is called a span and can also be turned into a little inline diagram as
+$X \leftarrow (X\times Y) \rightarrow Y$.
+Of course, there are other things we could put at the top of the fork, maybe some other
+set $A$ that maps both ways: $X \leftarrow A \rightarrow Y$.
+But $X\times Y$ is unique in this capacity because every $A$ and its span can be expressed
+via a morphism to $X\times Y$. Here is the commutative diagram:
 
  \Comdiag{
         \& X\times Y \ar[dl,"\pi_1"'] \ar[dr,"\pi_2"] \\
@@ -182,7 +219,19 @@ $A\times B \to A$---just drop the $B$ part---and $A\times B \to B$.
     \& A \ar[ul, "\forall f"] \ar[ur, "\forall g"'] \ar[uu, dashrightarrow, "f\times g"]
     }
 
+For any $f$ and $g$, you could go the short way to map $A$ to $X$ or $Y$, but you are
+guaranteed that there is also a pair of mappings $A\to (X\times Y) \to X$ and $A\to
+(X\times Y) \to Y$ that are
+the long commute to the same point.  Put differently, you can have an arbitrary
+span composed of any object and mappings iff you can write down a map $A\to (X\times
+Y)$. That any span can be expressed by going through $X\times Y$ makes that object a
+sort of universal spanner.
 
+One can generate other universal properties for other common diagrams and operations.
 
+\nocite{awodey:category}
+\nocite{riehl:category}
+\bibliographystyle{plainnat}
+\bibliography{cat_notes}
 
 \end{document}

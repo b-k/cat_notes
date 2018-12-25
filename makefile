@@ -2,6 +2,8 @@
 doc:
 	xelatex cat_notes.tex
 	xelatex cat_notes.tex
+	bibtex cat_notes
+	xelatex cat_notes
 
 cards:
 	python ./go.py
