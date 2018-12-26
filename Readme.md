@@ -3,7 +3,7 @@ to learn Category Theory, but being that I'm not in an academic setting and this
 something economists usually do, I was on my own with the textbooks.
 
 Here are my notes, compiled to a PDF at
-https://raw.githubusercontent.com/b-k/cat_notes/master/cat_notes.tex . Some would be
+https://raw.githubusercontent.com/b-k/cat_notes/master/cat_notes.pdf . Some would be
 very obvious to a mathematician, but are sufficiently outside my usual way of thinking
 that I felt them worth clarifying to myself, and writing down to verify I understand
 them clearly. I made them public because maybe, if you're also somebody who knows a
