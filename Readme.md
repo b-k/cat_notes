@@ -11,10 +11,11 @@ be useful to you too.
 Math is _extremely_ vocabulary-heavy. Every statement, every theorem, is of the form
 _define a thing, then define another thing; these things are related via a relationship
 we have defined_. You could conceivably read a book in a language you don't speak by
-looking up every word, but if you hope to make any progress
-in reasonable time you will need to know the basic vocabulary without thinking too much
-about it. So much of the content in this repository is in the form of flash cards. Keeping
-to the spirit of mathematics, the great majority of cards cover definitions.
+looking up every word, but if you hope to make any progress in reasonable time you
+will need to know the basic vocabulary without thinking too much about it. So much of
+the content in this repository is in the form of flash cards. There are some theorems
+and simple exercises, but keeping to the spirit of mathematics, the great majority of
+cards cover definitions.
 
 This repository, then, includes a document of general conceptual notes to myself, in
 `cat_notes.tex`, and a much longer set of flash cards, in `cat_cards.tex`.

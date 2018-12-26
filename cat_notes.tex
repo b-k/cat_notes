@@ -8,108 +8,63 @@
 \title{Category theory notes}
 \maketitle
 
-Please see the Readme file for motivation and context. Right now the document only touches
-on and motivates what seem to be the key ideas pushed by the basic category theory
-textbooks I've been reading.
+Right now the document only touches on and motivates what seem to be the key ideas
+pushed by the basic category theory textbooks I've been reading. There is still a long
+to-do list I am trying to get through: duality, more about natural transformations and how
+they chain together, adjoints, probably more examples.
 
 \section{Intro}
-First question: why study category theory at all? Remember I'm a novice and this is
+The question I've gotten from everybody I talk to about this:
+why study category theory at all? Remember I'm a novice and this is
 forward looking, but here are my impressions halfway through a few textbooks:
 
 \items{
-\item  I'm hoping it'll be a shortcut to learning more math. Like, if I get this, then
+\item  I'm hoping it'll be a shortcut to learning more math. If I get this, then
 algebraic topology should be metaphorical cake.
 \item  By {\em category}, we mean {\em context}, and we're looking for patterns across
-contexts: a lot of mathematical pursuits sort of do the same thing over and over. Can
-we formalize that and say that indeed, whatever two things that seem different are
-actually the same thing?
-\item  The intros seem to motivate it via verbs and motion, as if you are touring from category
-to category, but maybe it's the opposite. Procedural code writers talk in terms of a
-sequence of steps to get somewhere; functional people write functions that simply are.
-It's not `plug 4 into the square functions and the computer does something and returns 16'
-but `the square of 4 is 16 and always has been and always will be.' The relationship
-between these categories/contexts has always been there and we only need a way to see
-them.
+contexts: a lot of mathematical pursuits do the same thing over and over. Can
+we formalize exactly how whatever two things are
+actually the same thing? There is a promise that even theoretical work in real-world
+contexts (i.e., my actual job) will benefit from better formalization of how
+contexts relate.
+\item Also, there is a trend in programming languages toward languages that use mappings
+from a certain category, the monad, back to itself (aka an endofunctor).
 \item From what I've read, a lot of philosophers work on it---there's some presumption that
 it's not just about symbol shunting, but about finding `natural' and `universal'
-properties of those patterns across disparate things. Here's Robert Penn Warren on the
-matter:
+properties of those patterns across disparate things.
+\item  The textbook intros seem to motivate it via verbs and motion, as if you are touring from category
+to category, but maybe it's the opposite. 
+Maybe math is not `plug 4 into the square functions and we do some things and return 16'
+but `the square of 4 is 16 and always has been and always will be.' The relationship
+between these categories/contexts has always been there and we only need a way to see them.
+Here's Robert Penn Warren on the matter:
 }
 
-\begin{verse}[\versewidth]
-Here is the shadow of truth, for only the shadow is true.
-And the line where the incoming swell from the sunset Pacific
-First leans and staggers to break will tell all you need to know
-About submarine geography, and your father’s death rattle
+\begin{verse}
+Here is the shadow of truth, for only the shadow is true.\\
+And the line where the incoming swell from the sunset Pacific\\
+First leans and staggers to break will tell all you need to know\\
+About submarine geography, and your father's death rattle\\
 Provides all biographical data required for the {\em Who's Who} of the dead.
 
-[...] and,
-In the distance, in {\em plaza, piazza, place, platz,} and square,
+\dots and,\\
+In the distance, in {\em plaza, piazza, place, platz,} and square,\\
 Boot heels, like history being born, on cobbles bang.
 
 Everything seems an echo of something else.
 
-And when, by the hair, the headsman held up the head
-Of Mary of Scots, the lips kept on moving,
-But without sound.  The lips,
-They were trying to say something very important.
-
-But I had forgotten to mention an upland
-Of wind-tortured stone white in darkness, and tall, but when
-No wind, mist gathers, and once on the Sarré at midnight,
-I watched the sheep huddling.  Their eyes
-Stared into nothingness.  In that mist-diffused light their eyes
-Were stupid and round like the eyes of fat fish in muddy water,
-Or of a scholar who has lost faith in his calling.
-
-Their jaws did not move.  Shreds
-Of dry grass, gray in the gray mist-light, hung
-From the side of a jaw, unmoving.
+\dots I watched the sheep huddling.  Their eyes\\
+Stared into nothingness.  In that mist-diffused light their eyes\\
+Were stupid and round like the eyes of fat fish in muddy water,\\
+Or of a scholar who has lost faith in his calling. \dots
 
 You would think that nothing would ever again happen.
 
 That may be a way to love God.
 \end{verse}
 
-\section{Bundles}\label{bundlesec}
-We're used to thinking in terms of sets comprising atomic elements, but mathematical
-objects are typically a bundle of parts. Non-mathematicians think about the non-negative real numbers
-$\Re^+$, but we have to start thinking about $\Re^+$ paired with addition and $\Re^+$
-paired with multiplication as different things. Some bundles:
-
-\items{
-    \item {\em Magma}: A set $S$ and a function $f:S\to S$.
-    \item {\em Preorder}: A set $S$ and a binary relation $\leq$. (See flash cards for
-the formal definition)
-    \item {\em Graph}: A collection $(V, A, src, tgt)$:
-    \items{
-        \item $V$ a set (vertices)
-        \item $A$ a set (arrows)
-        \item $src:A\to V$ a function giving arrow heads
-        \item $tgt:A\to V$ a function giving arrow tails
-    }
-}
-
-Authors who write in object-oriented programming languages will recognize this
-use of {\em object} to mean a structure of elements, some of which could be verbs.
-
-\subsection{Those object-function pairs}
-These objects often have constraints attached, and what we name the pair $(S, f)$ depends on
-how restrictive we want to be about the function:
-
-\items{
-    \item {\em Magma}: A set $S$ and a function $f:S\to S$.
-    \item {\em Semigroup}: A magma where $f$ is associative: $f(a, f(b,c))=f(f(a, b),c)$.
-    \item {\em Monoid}: A semigroup with an identity element for which $f(id)=id$.
-    \item {\em Group}: A monoid where every element has an inverse: $\forall x\in S$, $\exists x_{inv}$ $\ni f(x, x_{inv}) = id$.
-}
-
-Associativity and identity are going to be part of the definition of categories,
-so there won't be a lot of discussion of things on the list before monoids.
-Groups are reserved for contexts where the sense of reversibility or symmetry make sense.
-
-BTW, if we allow zero in $\Re^+$, then $(\Re^+, +)$ is a monoid (no negative numbers
-$\rightarrow$ no inverses) and $(\Re^+, \cdot)$ is a group.
+OK, now that I've answered that question, let's start from simple element-to-element
+mappings and work up.
 
 \section{Leveling up}\label{levelsec}
 
@@ -131,14 +86,15 @@ Here, the nodes in the graph are single elements in the sets, and the arrows des
 where each element goes.
 
 The function notation $f:A\to B$ is itself a tiny graph. If there were also a function
-$g:C\to B$, we could construct a diagram that looks like the above element-by-element graph:
+$g:C\to B$, we could construct a diagram that looks like the above element-by-element graph, but with sets at the nodes instead of single elements:
 
 \Comdiag{A \ar[r,"f"]\& B\\
 C \ar[ru, "g"] 
 }
 So we've gone up a level: each arrow at this level could be cracked open to reveal
-a bundle of arrows, its own element-by-element diagram like the one we had above. A
-closed function $f:A\to A$ maps to its own set, so we'd draw it as a loop:
+a bundle of arrows, its own element-by-element diagram like the one we had above.
+
+A closed function $f:A\to A$ maps to its own set, so we'd draw it as a loop:
 
 \Comdiag{A\ar[loop right]}
 
@@ -147,8 +103,8 @@ consider the collections of all
 mappings of the form $f:A\to B$. The first diagram with three elements in $A$ and
 three in $B$ could be rewired nine different ways. The full set of these mappings (aka
 homomorphisms) is $\Hom{set}(A, B)$. But our collection doesn't have to be the whole set;
-it's our choice. Sets use capitals and their elements lower case $(s\in S)$, so
-given lower-case functions $f$, let a collection of those be $F$; we would draw these
+it's our choice. Sets use capitals and their elements lower case $(s\in S)$, so by
+analogy, given lower-case functions $f$, let a collection of those be $F$; we would draw these
 bundles as
 
 \Comdiag{A \ar[r,"F"]\& B}
@@ -160,7 +116,7 @@ real numbers, we can now summarize all real one-variable functions with the diag
 
 This is the level at which category theory speaks.
 
-All these diagrams look alike, so for any random diagram out of a textbook, it's
+All these diagrams look alike, so for any diagram you come across in a textbook, it's
 worth checking where we are in the pyramid:
 \items{
     \item Node is a single element; arrow represents a mapping from one element to another
@@ -168,31 +124,66 @@ worth checking where we are in the pyramid:
     \item Node is a set; arrow represents a set of functions from one set to another
 }
 
+\section{Bundles}\label{bundlesec}
+We're used to thinking in terms of sets comprising atomic elements, but mathematical
+objects are typically a bundle of parts. Non-mathematicians think about the non-negative real numbers
+$\Re^+$, but we have to start thinking about $\Re^+$ paired with addition and $\Re^+$
+paired with multiplication as different things. Some bundles:
+
+\items{
+    \item {\em Magma}: A set $S$ and a function $f:S\to S$.
+    \item {\em Preorder}: A set $S$ and a binary relation $\leq$. (See flash cards for
+the formal definition)
+    \item {\em Graph}: A collection $(V, A, src, tgt)$:
+    \items{
+        \item $V$ a set (vertices)
+        \item $A$ a set (arrows)
+        \item $src:A\to V$ a function giving arrow sources
+        \item $tgt:A\to V$ a function giving arrow targets
+    }
+}
+
+Authors who write in object-oriented programming languages will recognize this
+use of {\em object} to mean a structure of elements, some of which could be verbs.
+
+\subsection{Constraints}
+These objects often have constraints attached, and what we name the pair $(S, f)$ depends on
+how restrictive we want to be about the function:
+
+\items{
+    \item {\em Magma}: A set $S$ and a function $f:S\to S$.
+    \item {\em Semigroup}: A magma where $f$ is associative: $f(a, f(b,c))=f(f(a, b),c)$.
+    \item {\em Monoid}: A semigroup with an identity element for which $f(id)=id$.
+    \item {\em Group}: A monoid where every element has an inverse: $\forall x\in S$,
+            $\exists x_{inv}$ such that $f(x, x_{inv}) = id$.
+}
+
+As an example, if we allow zero in $\Re^+$, then $(\Re^+, +)$ is a monoid (no negative numbers, so
+no inverses) and $(\Re^+, \cdot)$ is a group.
+
+Associativity and identity are going to be part of the definition of categories,
+so there won't be a lot of discussion of things on the list before monoids.
+Groups are reserved for contexts where the sense of reversibility or symmetry make sense.
+
 \subsection{Category characteristics}
 See the flash cards for the formalization, but less formally,
-a category is a bundle of elements as per the end of that chain: some sets
-(referred to as the objects in the category), and the sets of mappings between some
-or all of them.  It also has a composition function, so given $F:A\to B$
-and $G:B\to C$, then $G\circ F:A\to C$ is a thing. I haven't yet seen this composition
-function be anything but the obvious $g(f(a)) = c$, so this is not difficult, but remember
-that we select which morphisms (aka maps or functions) we want to include. If we have $F$
-and $G$ as above, then including $G\circ F$ is not a choice.
+a category is a bundle of elements as per the end of the chain of arrow abstractions. Bundle
+together some things that will be nodes (herein, objects),
+and the sets of mappings between some or all of them.
 
-A proper category also has some
-constraining characteristics. First, we don't have to include the full set of mappings from
-$A\to A$, which as above may cover vast territory, but for every set we do have to include
-the identity morphism mapping every element of an object to itself. Second, the composition
-is associative and correctly handles the identity mappings.
+You get to pick which mappings you will put in the set of mappings, with a few simple conditions.
+You don't have to include every mapping (herien, morphism) from node to node, which as above may cover all of one-variable high school algebra with a single arrow. But for every set we do have to include
+the identity morphism $id_A:A\to A$ mapping every element of an object to itself.
+
+It also has a composition function, so given $F:A\to B$
+and $G:B\to C$, we have to include $G\circ F:A\to C$. I haven't yet seen this composition
+function be anything but the obvious $g(f(a)) = c$, so this is not difficult, but in case
+you get creative, the textbooks also require that $id_b\circ f(a)=f(a)$ and $g\circ id(b) = g(b)$.
 
 Having these additional rules means we can't just throw out any old set of nodes and edges
-and call it a category, but we're usually going with the composition function of {\em apply $f$, then
-apply $g$ to whatever you got out of $f$}, which works fine, and appending identity
-morphisms is so easy to do that people usually don't even bother drawing the loops in,
-so whatever diagram of sets and sets of functions you write down probably fits the rules.
-Just as a group behaves differently from a monoid because of the additional structure,
-the additional formality will allow us to say more below. But there does seem to be a
-lot in common across levels, and many things that are true on the sets-and-functions
-level will also work out on the cats-and-functors level.
+and call it a category, but it's not hard to add these extra mappings as needed,
+to the point that people usually don't even bother drawing the loops to mark the
+identities.
 
 \subsection{Starting to map}
 The nodes in all the graphs above could be anything, including the bundles of elements from
@@ -200,25 +191,25 @@ Section \ref{bundlesec}.
 
 Let ${\bf PrO}$ be the set of all preorders and ${\bf Graph}$ be the set of graphs. A
 single preorder is a set of relations of the form $a \leq b$, and we could replace the $\leq$
-symbol with an arrow, and $a\leftarrow b$ is already another little inline graph. 
+symbol with an arrow, like $a\leftarrow b$, and we have another little inline graph. 
 Doing the same for all of the elements in the preorder would generate a list of
-$($nodes, arrows, starting points, end points$)$ in ${\bf Graph}$.
+$($nodes, arrows, sources, targets$)$ in ${\bf Graph}$.
 That is, $f:{\bf PrO}\to {\bf Graph}$ makes as much sense as $f:\Re \to \Re$. Set up such
 a mapping for every element of ${\bf PrO}$, and we have a category diagram with two
-objects and homomorphisms between them.
+objects and one arrow representing all homomorphisms mapping all partial orders to graphs.
 
 Categories are themselves a bundle like the ones from Section \ref{bundlesec}: a set
 of objects paired with a set of morphisms between them. So they too could be a node in
-one of the above diagrams, giving us the category of categories.\footnote{Authors refer
+one of the above diagrams, giving us the category of categories, ${\bf Cat}$.\footnote{Authors refer
 to {\em the} category of categories, and I'm unclear whether an alternative cat-of-cats
 exists or what it would look like, so we may be at the top here---there's no category of
 categories of categories.}
 
-Things are already getting self-referential: ${\bf PrO}\to {\bf Graph}$ is a node-and-arrow
-graph representing an operation involving the set of node-and-arrow graphs. For the 
-category of categories, ${\bf Cat}$, we can show that ${\bf Cat}\to {\bf Graph}$, thus
-drawing a graph for the category \{${\bf Cat}, {\bf Graph}$\} to represent how categories and graphs relate.
-Mathematicians love this stuff.
+Things are already getting self-referential: ${\bf PrO}\to {\bf Graph}$ is a
+node-and-arrow graph representing an operation involving the set of node-and-arrow
+graphs. For ${\bf Cat}$, we can show that ${\bf Cat}\to {\bf Graph}$, thus drawing a
+graph for the category \{${\bf Cat}, {\bf Graph}$\} to represent how categories and
+graphs relate.  Mathematicians love this stuff.
 
 \section{Where commuting gets us} It's already potentially interesting that we can
 express mappings between different concepts like orderings and graphs, but things don't get
@@ -229,13 +220,12 @@ For example,
 \citet{spivak:category} describes multisets as sets of elements $E$ with a set $B$ of
 symbol names, and a map $\pi:E\to B$. So, for example, we could replace all the words in a
 book with numbers, producing a sequence $e_1, e_2, \dots$, then have a dictionary
-of the words, and $\pi$ tells us that $e_{250}$ is {\em dog}. We
+of the words, and $\pi$ tells us that $e_{250}$ maps to {\em dog}. We
 may have another set of elements and symbols in another context, maybe a corpus in
 another language, so we'll need an element mapping $f_1:E\to E'$ and a symbol mapping
-$f_2:B\to B'$.
+$f_2:B\to B'$. See the flash cards for formalization.
 
-Here is a diagram
-from the flash card ({\em qv}) on mapping a multiset $(E, B, \pi)$ to another:
+Here is a diagram for mapping a multiset $(E, B, \pi)$ to another:
 \Comdiag{E \ar[r, "f_1"] \ar[d, "\pi"'] \& E'  \ar[d, "\pi'"]\\
         B \ar[r, "f_2"'] \& B'
     }
@@ -252,17 +242,35 @@ When are both routes identical? This is often an interesting question in its own
 For books and word lists in Portuguese and English, I'd guess there's a natural
 way to map simple nouns: Finding that an element in the $P$ corpus is {\em cão},
 then translating that word to the Portuguese-to-English dictionary to find that it means {\em dog}
-is likely equivalent to first finding the element in the English corpus matching our
-element of interest, then looking up that that element in the $E$ corpus maps to {\em
-dog}. This is going to be easy and natural, while doing the same with {\em saudade}
-is going to take some forcing.
+is likely equivalent to the commuted procedure of first finding the element in the
+English corpus matching our element of interest, then looking up that that element in
+the $E$ corpus maps to {\em dog}. This is going to be easy and natural, while doing
+the same with {\em saudade} is going to take some forcing.
 
-This example was at the set level, but one could do the same at the category level.
-If there is a mapping from one world to another where (apply internal function, then jump)
-produces the same outcome as (jump, then apply internal function), we call the jump across
-categories a {\em natural transformation}.
+A slight digression to further clarify commutative diagrams:
+one way to nail down the relationship is to just cull down what is in your sets. The set
+of books, $B$, can be cataloged either via the Library of Congress classification system
+(a set of call numbers $L$), or the Dewey decimal system (another set of call numbers
+$D$). Let us pair together call numbers referring to the same book, in the cross-product
+space $D\times L$. The full cross product makes no sense, and
+not all books have a classification in every system, so
+out of the full cross of all pairs $(d, l)$,
+we will write down the relatively small list of pairs that are about the same book, herein $D\times_B L$.
+Finally, we have commutativity:
+\Comdiag{D\times_B L \ar[r] \ar[d] \& L  \ar[d]\\
+        D \ar[r] \& B
+    }
+There is information in the pairing, and there is even information in the list of books
+and call numbers that can't be found from $D\times_B L$ and are now lost in the stacks.
 
-Further, these diagrams chain together:
+These examples were at the set level, but one could do the same at the category level.
+I'd used the word {\em natural} to describe the procedure to map across languages,
+then find in dictionary; or identically find in dictionary then map across languages.
+If there is a mapping from one context to another where (apply internal function,
+then jump) produces the same outcome as (jump, then apply internal function), we call
+the jump across categories a {\em natural transformation}.
+
+Further, all these commutative diagrams chain together:
 
 \Comdiag{E \ar[r, "f_1"] \ar[d, "\pi"'] \& E'   \ar[r, "f_3"] \ar[d, "\pi'"] \& E'' \ar[d, "\pi''"]\\
         B \ar[r, "f_2"'] \& B' \ar[r, "f_4"'] \&B''
@@ -275,8 +283,9 @@ and preorders to graphs, we just got a multiset-to-graph generator for free.
 
 \subsection{Universal properties}
 Consider the cross product of two sets, $A\times B$. There is an obvious mapping from
-$A\times B \to A$---just drop the $B$ part---and $A\times B \to B$. Here is the shape of this as a
-diagram, with $\pi_1$ and $\pi_2$ being the {\em drop one part} functions:
+$A\times B \to A$ and $A\times B \to B$---just drop the unneeded $B$ or $A$ part. Here
+is the shape of this as a diagram, with $\pi_1$ and $\pi_2$ being the {\em drop one
+part} functions:
 
 \Comdiag{
         \& X\times Y \ar[dl,"\pi_1"'] \ar[dr,"\pi_2"] \\
@@ -296,6 +305,7 @@ via a morphism to $X\times Y$. Here is the commutative diagram:
     \& A \ar[ul, "\forall f"] \ar[ur, "\forall g"'] \ar[uu, dashrightarrow, "f\times g"]
     }
 
+As noted in the diagram, this is trivial to generate as the ordered pair $(f(a), g(a))$.
 For any $f$ and $g$, you could go the short way to map $A$ to $X$ or $Y$, but you are
 guaranteed that there is also a pair of mappings $A\to (X\times Y) \to X$ and $A\to
 (X\times Y) \to Y$ that are
