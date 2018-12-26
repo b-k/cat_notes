@@ -1,5 +1,5 @@
 \documentclass[11pt]{article}
-\usepackage{amssymb,amsmath,tikz-cd,xspace, natbib}
+\usepackage{amssymb,amsmath,tikz-cd,xspace, natbib,verse}
 \usepackage[T1]{fontenc}
 
 \begin{document}
@@ -11,6 +11,65 @@
 Please see the Readme file for motivation and context. Right now the document only touches
 on and motivates what seem to be the key ideas pushed by the basic category theory
 textbooks I've been reading.
+
+\section{Intro}
+First question: why study category theory at all? Remember I'm a novice and this is
+forward looking, but here are my impressions halfway through a few textbooks:
+
+\items{
+\item  I'm hoping it'll be a shortcut to learning more math. Like, if I get this, then
+algebraic topology should be metaphorical cake.
+\item  By {\em category}, we mean {\em context}, and we're looking for patterns across
+contexts: a lot of mathematical pursuits sort of do the same thing over and over. Can
+we formalize that and say that indeed, whatever two things that seem different are
+actually the same thing?
+\item  The intros seem to motivate it via verbs and motion, as if you are touring from category
+to category, but maybe it's the opposite. Procedural code writers talk in terms of a
+sequence of steps to get somewhere; functional people write functions that simply are.
+It's not `plug 4 into the square functions and the computer does something and returns 16'
+but `the square of 4 is 16 and always has been and always will be.' The relationship
+between these categories/contexts has always been there and we only need a way to see
+them.
+\item From what I've read, a lot of philosophers work on it---there's some presumption that
+it's not just about symbol shunting, but about finding `natural' and `universal'
+properties of those patterns across disparate things. Here's Robert Penn Warren on the
+matter:
+}
+
+\begin{verse}[\versewidth]
+Here is the shadow of truth, for only the shadow is true.
+And the line where the incoming swell from the sunset Pacific
+First leans and staggers to break will tell all you need to know
+About submarine geography, and your father’s death rattle
+Provides all biographical data required for the {\em Who's Who} of the dead.
+
+[...] and,
+In the distance, in {\em plaza, piazza, place, platz,} and square,
+Boot heels, like history being born, on cobbles bang.
+
+Everything seems an echo of something else.
+
+And when, by the hair, the headsman held up the head
+Of Mary of Scots, the lips kept on moving,
+But without sound.  The lips,
+They were trying to say something very important.
+
+But I had forgotten to mention an upland
+Of wind-tortured stone white in darkness, and tall, but when
+No wind, mist gathers, and once on the Sarré at midnight,
+I watched the sheep huddling.  Their eyes
+Stared into nothingness.  In that mist-diffused light their eyes
+Were stupid and round like the eyes of fat fish in muddy water,
+Or of a scholar who has lost faith in his calling.
+
+Their jaws did not move.  Shreds
+Of dry grass, gray in the gray mist-light, hung
+From the side of a jaw, unmoving.
+
+You would think that nothing would ever again happen.
+
+That may be a way to love God.
+\end{verse}
 
 \section{Bundles}\label{bundlesec}
 We're used to thinking in terms of sets comprising atomic elements, but mathematical
@@ -115,9 +174,9 @@ a category is a bundle of elements as per the end of that chain: some sets
 (referred to as the objects in the category), and the sets of mappings between some
 or all of them.  It also has a composition function, so given $F:A\to B$
 and $G:B\to C$, then $G\circ F:A\to C$ is a thing. I haven't yet seen this composition
-function be anything but the obvious $g(f(a)) = c$, but I suppose this leaves the door
-open for creativity, and clarifies that these chains are not themselves in the set of
-function bundles defining the system (unless you want them to be).
+function be anything but the obvious $g(f(a)) = c$, so this is not difficult, but remember
+that we select which morphisms (aka maps or functions) we want to include. If we have $F$
+and $G$ as above, then including $G\circ F$ is not a choice.
 
 A proper category also has some
 constraining characteristics. First, we don't have to include the full set of mappings from

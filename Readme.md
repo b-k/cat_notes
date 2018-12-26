@@ -1,4 +1,4 @@
-I'm an economist/statistician/game theorist, but I'm not a non-mathematician.  I wanted
+I'm an economist/statistician/game theorist, but I'm not a mathematician.  I wanted
 to learn Category Theory, but being that I'm not in an academic setting and this isn't
 something economists usually do, I was on my own with the textbooks.
 
