@@ -9,7 +9,7 @@ cards:
 	python ./go.py
 
 clean:
-	rm -f *.aux *.log *.pdf counts tmp.* odes.out
+	rm -f *.{aux,bbl,blg,log} cards.pdf cat_cards.pdf mid1.pdf mid.pdf counts tmp.* odes.out
 
 all:
 	for i in *tex; do \
