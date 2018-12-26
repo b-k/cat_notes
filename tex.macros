@@ -10,6 +10,7 @@
 }
 
 \def\Re{\ensuremath{{\mathbb R}\xspace}}
+\def\Nat{\ensuremath{{\mathbb N}\xspace}}
 
 \def\Hom#1{\ensuremath {\rm Hom}_{\rm \bf #1}}
 

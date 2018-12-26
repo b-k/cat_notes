@@ -47,8 +47,7 @@ First leans and staggers to break will tell all you need to know\\
 About submarine geography, and your father's death rattle\\
 Provides all biographical data required for the {\em Who's Who} of the dead.
 
-\dots and,\\
-In the distance, in {\em plaza, piazza, place, platz,} and square,\\
+\dots In the distance, in {\em plaza, piazza, place, platz,} and square,\\
 Boot heels, like history being born, on cobbles bang.
 
 Everything seems an echo of something else.
@@ -114,7 +113,16 @@ they'd be tentacles. But there is indeed a lot of power there: with \Re\ represe
 real numbers, we can now summarize all real one-variable functions with the diagram 
 \Comdiag{\Re\ar[loop right]}
 
-This is the level at which category theory speaks.
+This is the level at which category theory speaks. But we can go one step further, and put
+this into a box as well, and now it is a single node in our graph. Let the above loop of
+all functions $f:\Re\to\Re$ be $\bf R$, and let's keep its company with the set
+the set of all functions on the natural numbers, $g:\Nat\to\Nat$, notated {\bf N}.
+
+\Comdiag{{\bf N}\ar[r] \& {\bf R}}
+
+Here, the arrow is a {\em functor}, which is a bundle of two sets of arrows at once:
+one to map elements of $\Nat$ to elements of $\Re$, and one to map the functions
+$\Nat\to \Nat$ to functions $\Re\to \Re$.
 
 All these diagrams look alike, so for any diagram you come across in a textbook, it's
 worth checking where we are in the pyramid:
@@ -122,6 +130,7 @@ worth checking where we are in the pyramid:
     \item Node is a single element; arrow represents a mapping from one element to another
     \item Node is a set; arrow represents a set of mappings from one set to another, aka a function
     \item Node is a set; arrow represents a set of functions from one set to another
+    \item Node is a set of objects with their own sets of functions; arrow represents a functor from one context to another
 }
 
 \section{Bundles}\label{bundlesec}
@@ -184,6 +193,16 @@ Having these additional rules means we can't just throw out any old set of nodes
 and call it a category, but it's not hard to add these extra mappings as needed,
 to the point that people usually don't even bother drawing the loops to mark the
 identities.
+
+Functors, as above, are a bundle of mappings of objects to objects plus mappings from
+functions to functions.  We want them to represent a sensible transformation from one
+context to another, so a functor $F$ has to have these constraints on how it maps
+functions and objects:
+\items{
+    \item $F(f:A\to B) = F(f): F(A)\to F(B)$
+    \item $F(id_A) = id_{F(A)}$
+    \item $f\circ g = F(f)\circ F(g)$
+}
 
 \subsection{Starting to map}
 The nodes in all the graphs above could be anything, including the bundles of elements from
