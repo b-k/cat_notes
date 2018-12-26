@@ -2,11 +2,12 @@ I'm an economist/statistician/game theorist, but I'm not a mathematician.  I wan
 to learn Category Theory, but being that I'm not in an academic setting and this isn't
 something economists usually do, I was on my own with the textbooks.
 
-Here are my notes. Some would be very obvious to a mathematician, but are sufficiently
-outside my usual way of thinking that I felt them worth clarifying to myself, and writing
-down to verify I understand them clearly. I made them public because maybe, if you're also
-somebody who knows a relatively good amount of math but is not a mathematician, they may
-be useful to you too.
+Here are my notes, compiled to a PDF at
+https://raw.githubusercontent.com/b-k/cat_notes/master/cat_notes.tex . Some would be
+very obvious to a mathematician, but are sufficiently outside my usual way of thinking
+that I felt them worth clarifying to myself, and writing down to verify I understand
+them clearly. I made them public because maybe, if you're also somebody who knows a
+relatively good amount of math but is not a mathematician, they may be useful to you too.
 
 Math is _extremely_ vocabulary-heavy. Every statement, every theorem, is of the form
 _define a thing, then define another thing; these things are related via a relationship
