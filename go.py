@@ -12,7 +12,7 @@ def go(dothis):
 
 go("xelatex cat_cards")
 
-Count=go("egrep '(\\\\Card|begin.flashcard)' " + " cat_cards.tex | wc -l")
+Count=go("egrep '(\\\\[Cc]ard|begin.flashcard)' " + " cat_cards.tex | wc -l")
 Count=int(Count)-1 #strip the first copyright/attribution card
 print("--------------------\n\t"+str(Count)+" cards.\n--------------------")
 
