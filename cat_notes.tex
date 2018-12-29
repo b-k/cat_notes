@@ -8,34 +8,33 @@
 \title{Category theory notes}
 \maketitle
 
-Right now the document only touches on and motivates what seem to be the key ideas
-pushed by the basic category theory textbooks I've been reading. There is still a long
-to-do list I am trying to get through: duality, more about natural transformations and how
-they chain together, adjoints, probably more examples.
+They say you don't understand something until you can explain it, so here is my exercise
+in explaining category theory. I make no claims to any authority on this subject and the
+document is incomplete in proportion to my incomplete understanding.
 
-\section{Intro}
-The question I've gotten from everybody I talk to about this:
-why study category theory at all? Remember I'm a novice and this is
-forward looking, but here are my impressions halfway through a few textbooks:
+\section{Why}
+The first question I have had to explain, to myself and every single person I've spoken
+to about these things: why study category theory at all? This is forward looking,
+but here are my impressions halfway through a few textbooks:
 
 \items{
-\item  I'm hoping it'll be a shortcut to learning more math. If I get this, then
-algebraic topology should be metaphorical cake.
 \item  By {\em category}, we mean {\em context}, and we're looking for patterns across
-contexts: a lot of mathematical pursuits do the same thing over and over. Can
-we formalize exactly how whatever two things are
-actually the same thing? There is a promise that even theoretical work in real-world
+contexts. When two mathematical pursuits do the same thing, can
+we formalize exactly how they are or are not identical?
+There is a promise that even theoretical work in real-world
 contexts (i.e., my actual job) will benefit from better formalization of how
 contexts relate.
-\item Also, there is a trend in programming languages toward languages that use mappings
-from a certain category, the monad, back to itself (aka an endofunctor).
+\item  I'm hoping it'll be a shortcut to learning more math. If I get this, then
+algebraic topology should be metaphorical cake.
+\item There is a trend in programming languages toward languages whose theory is based on
+a category of types.  Out-of-fashion languages
+are written in terms of procedures: plug 4 into the square functions and we do some
+things and return 16. Languages oriented toward mathematical functions encourage a
+thinking that is far more still: the square of 4 is 16 and always has been and always
+will be.
 \item From what I've read, a lot of philosophers work on it---there's some presumption that
 it's not just about symbol shunting, but about finding `natural' and `universal'
-properties of those patterns across disparate things.
-\item  The textbook intros seem to motivate it via verbs and motion, as if you are touring from category
-to category, but maybe it's the opposite. 
-Maybe math is not `plug 4 into the square functions and we do some things and return 16'
-but `the square of 4 is 16 and always has been and always will be.' The relationship
+properties of those patterns across disparate things.  The relationship
 between these categories/contexts has always been there and we only need a way to see them.
 Here's Robert Penn Warren on the matter:
 }
@@ -62,7 +61,7 @@ You would think that nothing would ever again happen.
 That may be a way to love God.
 \end{verse}
 
-OK, now that I've answered that question, let's start from simple element-to-element
+OK, now that we've covered the {\em why} question, let's start from simple element-to-element
 mappings and work up.
 
 \section{Leveling up}\label{levelsec}
@@ -93,36 +92,37 @@ C \ar[ru, "g"]
 So we've gone up a level: each arrow at this level could be cracked open to reveal
 a bundle of arrows, its own element-by-element diagram like the one we had above.
 
-A closed function $f:A\to A$ maps to its own set, so we'd draw it as a loop:
+A closed function $f:A\to A$ maps from a set to itself, so we'd draw it as a loop:
 
 \Comdiag{A\ar[loop right]}
 
-But we can bundle further. In the last diagram we had a single function. But
-consider the collections of all
-mappings of the form $f:A\to B$. The first diagram with three elements in $A$ and
-three in $B$ could be rewired nine different ways. The full set of these mappings (aka
-homomorphisms) is $\Hom{set}(A, B)$. But our collection doesn't have to be the whole set;
-it's our choice. Sets use capitals and their elements lower case $(s\in S)$, so by
-analogy, given lower-case functions $f$, let a collection of those be $F$; we would draw these
+I think a lot of math in the early- to mid-1900s worked at this level, defining as much as
+possible via sets and mappings between sets. But we can bundle further. In the last
+diagram we had a single function. But consider a collection of mappings (aka homomorphisms)
+from set $A$ to set $B$, $\Hom{set}(A, B)$.
+The first diagram with three elements in $A$ and
+three in $B$ could be rewired nine different ways, but it's our choice and we can include
+one to nine functions as desired.  We would draw these
 bundles as
+\Comdiag{A \ar[r,"\Hom{set}"]\& B}
 
-\Comdiag{A \ar[r,"F"]\& B}
-
-I think of $F$ as a bundle of quivering wires, each with its own power. If this were anime
+I think of this arrow as a bundle of quivering wires, each with its own power. If this were anime
 they'd be tentacles. But there is indeed a lot of power there: with \Re\ representing the
 real numbers, we can now summarize all real one-variable functions with the diagram 
 \Comdiag{\Re\ar[loop right]}
 
-This is the level at which category theory speaks. But we can go one step further, and put
+We are approaching the level at which category theory speaks. But we can go one step further, and put
 this into a box as well, and now it is a single node in our graph. Let the above loop of
-all functions $f:\Re\to\Re$ be $\bf R$, and let's keep its company with the set
+all functions $f:\Re\to\Re$ be $\bf R$, and let's keep its company with
 the set of all functions on the natural numbers, $g:\Nat\to\Nat$, notated {\bf N}.
 
-\Comdiag{{\bf N}\ar[r] \& {\bf R}}
+\Comdiag{{\bf N}\ar[r, "F"] \& {\bf R}}
 
 Here, the arrow is a {\em functor}, which is a bundle of two sets of arrows at once:
 one to map elements of $\Nat$ to elements of $\Re$, and one to map the functions
-$\Nat\to \Nat$ to functions $\Re\to \Re$.
+$\Nat\to \Nat$ to functions $\Re\to \Re$. [There are additional restrictions; see
+below.] Custom is to write these with capital letters, to contrast with typically
+lower-case functions.
 
 All these diagrams look alike, so for any diagram you come across in a textbook, it's
 worth checking where we are in the pyramid:
@@ -136,8 +136,8 @@ worth checking where we are in the pyramid:
 \section{Bundles}\label{bundlesec}
 We're used to thinking in terms of sets comprising atomic elements, but mathematical
 objects are typically a bundle of parts. Non-mathematicians think about the non-negative real numbers
-$\Re^+$, but we have to start thinking about $\Re^+$ paired with addition and $\Re^+$
-paired with multiplication as different things. Some bundles:
+$\Re^+$, but we have to start thinking about ($\Re^+$ paired with addition) and ($\Re^+$
+paired with multiplication) as different things. Some bundles:
 
 \items{
     \item {\em Magma}: A set $S$ and a function $f:S\to S$.
@@ -156,38 +156,40 @@ Authors who write in object-oriented programming languages will recognize this
 use of {\em object} to mean a structure of elements, some of which could be verbs.
 
 \subsection{Constraints}
-These objects often have constraints attached, and what we name the pair $(S, f)$ depends on
+These objects often have constraints attached. For example, what we name the pair $(S, f)$ depends on
 how restrictive we want to be about the function:
 
 \items{
     \item {\em Magma}: A set $S$ and a function $f:S\to S$.
     \item {\em Semigroup}: A magma where $f$ is associative: $f(a, f(b,c))=f(f(a, b),c)$.
-    \item {\em Monoid}: A semigroup with an identity element for which $f(id)=id$.
+    \item {\em Monoid}: A semigroup with an identity element for which $f(id, s)=s,$ for all $s\in S$.
     \item {\em Group}: A monoid where every element has an inverse: $\forall x\in S$,
             $\exists x_{inv}$ such that $f(x, x_{inv}) = id$.
 }
 
-As an example, if we allow zero in $\Re^+$, then $(\Re^+, +)$ is a monoid (no negative numbers, so
-no inverses) and $(\Re^+, \cdot)$ is a group.
+As an example, if we allow zero in $\Re^+$, then $(\Re^+, +)$ is a monoid (but no
+negative numbers, so no inverses) and $(\Re^+, \cdot)$ is a group.
 
 Associativity and identity are going to be part of the definition of categories,
 so there won't be a lot of discussion of things on the list before monoids.
 Groups are reserved for contexts where the sense of reversibility or symmetry make sense.
 
-\subsection{Category characteristics}
-See the flash cards for the formalization, but less formally,
-a category is a bundle of elements as per the end of the chain of arrow abstractions. Bundle
-together some things that will be nodes (herein, objects),
-and the sets of mappings between some or all of them.
+\subsection{Category constraints}
+A category is a bundle of elements as per the end of the chain of arrow
+abstractions. Bundle together some things that will be nodes (herein, objects), and
+the sets of mappings between some or all of them.
 
 You get to pick which mappings you will put in the set of mappings, with a few simple conditions.
-You don't have to include every mapping (herien, morphism) from node to node, which as above may cover all of one-variable high school algebra with a single arrow. But for every set we do have to include
+You don't have to include every mapping (herein, morphism) from node to node, which as above may cover all of one-variable high school algebra with a single arrow. But for every set we do have to include
 the identity morphism $id_A:A\to A$ mapping every element of an object to itself.
 
-It also has a composition function, so given $F:A\to B$
-and $G:B\to C$, we have to include $G\circ F:A\to C$. I haven't yet seen this composition
-function be anything but the obvious $g(f(a)) = c$, so this is not difficult, but in case
-you get creative, the textbooks also require that $id_b\circ f(a)=f(a)$ and $g\circ id(b) = g(b)$.
+A category also has a composition function, so given $F:A\to B$
+and $G:B\to C$, we have to include $G\circ F:A\to C$. If the composition function
+is the usual $g(f(a)) = c$, so this is not difficult, but in case you get
+creative, the textbooks also require that $id_b\circ f(a)=f(a)$ and $g\circ id(b)
+= g(b)$.\footnote{Every author makes a big deal of how $G\circ F$ looks backward,
+but all you have to do is read $\circ$ as {\em of}, as in {\em $g$ of $f$}, which is
+exactly how people read $g(f(x))$. Really not a big deal at all.}
 
 Having these additional rules means we can't just throw out any old set of nodes and edges
 and call it a category, but it's not hard to add these extra mappings as needed,
@@ -204,7 +206,7 @@ functions and objects:
     \item $f\circ g = F(f)\circ F(g)$
 }
 
-\subsection{Starting to map}
+\section{Starting to map}
 The nodes in all the graphs above could be anything, including the bundles of elements from
 Section \ref{bundlesec}.
 
@@ -217,6 +219,27 @@ That is, $f:{\bf PrO}\to {\bf Graph}$ makes as much sense as $f:\Re \to \Re$. Se
 a mapping for every element of ${\bf PrO}$, and we have a category diagram with two
 objects and one arrow representing all homomorphisms mapping all partial orders to graphs.
 
+A monoid as defined above is already a category. Objects are the set of elements $M$
+on which the monoid is defined, we require a function $f:M\to M$ which must be
+associative, and we require an identity mapping $f(id, a)= a$ (in fact, two, because
+$f(a, id)$ also equals $a$). By definition, all the boxes are checked.
+
+But we can also express a monoid in a manner that doesn't fit the intuitive approach
+of having a set of elements, some functions between them, and the usual function
+composition. I'm not clear on the benefits, but is is definitely cooler. Here are the
+components of another category built from a monoid $(S, id, f)$:
+\items{
+    \item Objects: following the name {\em monoid}, this category has exactly one object.
+Call it \S.
+    \item Morphisms: For every monoid element $M$, define a morphism $M:\S\to\S$. Include
+an identity element $id: \S\to\S$. That is, the same mapping, $f(\S)=\S$,
+appears several times in the same category, distinguished by different labels.
+    \item Composition: $M_1\circ M_2 \equiv f(M_1, M_2)$.
+}
+A category requires a composition function that is associative and correctly handles the
+identity morphism, and we get exactly that from the monoid requirements on $f$. More on
+this below.
+
 Categories are themselves a bundle like the ones from Section \ref{bundlesec}: a set
 of objects paired with a set of morphisms between them. So they too could be a node in
 one of the above diagrams, giving us the category of categories, ${\bf Cat}$.\footnote{Authors refer
@@ -227,13 +250,12 @@ categories of categories.}
 Things are already getting self-referential: ${\bf PrO}\to {\bf Graph}$ is a
 node-and-arrow graph representing an operation involving the set of node-and-arrow
 graphs. For ${\bf Cat}$, we can show that ${\bf Cat}\to {\bf Graph}$, thus drawing a
-graph for the category \{${\bf Cat}, {\bf Graph}$\} to represent how categories and
-graphs relate.  Mathematicians love this stuff.
+graph for two categories to represent how categories and graphs relate.  Mathematicians
+love this stuff.
 
 \section{Where commuting gets us} It's already potentially interesting that we can
 express mappings between different concepts like orderings and graphs, but things don't get
 interesting until we have multiple paths to the same place.
-
 
 For example,
 \citet{spivak:category} describes multisets as sets of elements $E$ with a set $B$ of
@@ -244,7 +266,9 @@ may have another set of elements and symbols in another context, maybe a corpus 
 another language, so we'll need an element mapping $f_1:E\to E'$ and a symbol mapping
 $f_2:B\to B'$. See the flash cards for formalization.
 
-Here is a diagram for mapping a multiset $(E, B, \pi)$ to another:
+Here is a diagram including both
+ the functions to map a multiset $(E, B, \pi)$ to another, and
+the $\pi$ functions inside the multisets:
 \Comdiag{E \ar[r, "f_1"] \ar[d, "\pi"'] \& E'  \ar[d, "\pi'"]\\
         B \ar[r, "f_2"'] \& B'
     }
@@ -259,37 +283,100 @@ map from $E$ to $B$ on that side (calculating $\pi\circ f_1(e)$).
 
 When are both routes identical? This is often an interesting question in its own right.
 For books and word lists in Portuguese and English, I'd guess there's a natural
-way to map simple nouns: Finding that an element in the $P$ corpus is {\em cão},
+way to map simple nouns: finding that an element in the $P$ corpus is {\em cão},
 then translating that word to the Portuguese-to-English dictionary to find that it means {\em dog}
 is likely equivalent to the commuted procedure of first finding the element in the
 English corpus matching our element of interest, then looking up that that element in
-the $E$ corpus maps to {\em dog}. This is going to be easy and natural, while doing
-the same with {\em saudade} is going to take some forcing.
+the $E$ corpus maps to {\em dog}. This is going to be easy and natural
 
-A slight digression to further clarify commutative diagrams:
-one way to nail down the relationship is to just cull down what is in your sets. The set
+Doing the same with {\em saudade} is going to take some forcing. It seems to me that
+these exceptions are interesting in their own right: we're going to generate a list of
+categories that all behave similarly and relate nicely, but what about those things
+that have to be thrown out to fit the categorical mold? The textbooks that focus on
+that mold naturally exclude them, but by definition, standardization requires jettisoning 
+the unique.
+
+Indeed, one way to nail down a relationship is to just cull down what is in your sets. The set
 of books, $B$, can be cataloged either via the Library of Congress classification system
 (a set of call numbers $L$), or the Dewey decimal system (another set of call numbers
 $D$). Let us pair together call numbers referring to the same book, in the cross-product
-space $D\times L$. The full cross product makes no sense, and
-not all books have a classification in every system, so
-out of the full cross of all pairs $(d, l)$,
-we will write down the relatively small list of pairs that are about the same book, herein $D\times_B L$.
-Finally, we have commutativity:
+space $D\times L$. The full cross product matching every Dewey number with ever LoC
+number makes no sense, and not all books have a classification in every system,
+so out of the full cross of all pairs $(d, l)$, we will write down the relatively
+small list of pairs that are about the same book, herein $D\times_B L$.  Finally,
+we have commutativity:
 \Comdiag{D\times_B L \ar[r] \ar[d] \& L  \ar[d]\\
         D \ar[r] \& B
     }
-There is information in the pairing, and there is even information in the list of books
-and call numbers that can't be found from $D\times_B L$ and are now lost in the stacks.
+This is a {\em pullback}. There is information in the pairing, and maybe even
+information in the list of books and call numbers that can't be found from $D\times_B L$
+and are now lost in the stacks.
 
-These examples were at the set level, but one could do the same at the category level.
-I'd used the word {\em natural} to describe the procedure to map across languages,
-then find in dictionary; or identically find in dictionary then map across languages.
+\subsection{Natural transformations}
 If there is a mapping from one context to another where (apply internal function,
 then jump) produces the same outcome as (jump, then apply internal function), we call
-the jump across categories a {\em natural transformation}.
+the jump across categories a {\em natural transformation}. We had a set-level example
+above where (find English lookup, translate lookup to Portuguese) and (find Portuguese
+match to element in English corpus, lookup in Portuguese) had the same outcome. We can do
+the same at the category level.
 
-Further, all these commutative diagrams chain together:
+Given two categories {\bf C} and {\bf D}, we can define ${\rm Fun}({\bf C}, {\bf D})$ as
+the category of functors between the two objects, and the set of arrows in that category
+will be the natural transformations. This motivates defining and identifying natural
+transformations, so we can bring the functors mapping {\bf C} to {\bf D} into the
+categorical club.
+
+Start with two categories and two functors, $F$ and $G$, each independently mapping the first
+category to the second.  Pick two elements from the first category, $a$ and $b$, and a mapping
+$h:a\to b$.  We want mappings $\alpha_a$ and $\alpha_b$ in the second category so that
+
+\Comdiag{F(a)  \ar[r, "\alpha_a"] \ar[d, "F(h)"] \& F(a)  \ar[d, "G(h)"]\\
+        G(a) \ar[r, "\alpha_b"] \& G(b)
+    }
+
+The functors are a natural transformation if, for any two elements of the first category,
+we have $\alpha$s that make this square commute. Note that all of $F(a), F(h), G(b),
+\dots$ are objects or mappings in the second category, and we require the $\alpha$s to
+be as well. If we have all this, then we have the sort of naturalness we seek: you can
+start in the $F$-transformed version and walk from $F(a)$ to $F(b)$ and then walk over to
+the $G$-transformed version and get to $G(b)$; or you can commute the order and
+$\alpha$-walk over to the $G$-transformed version first and then from $G(a)$ to $G(b)$.
+
+Here is a failed attempt.
+Consider the category consisting of a single object $A$, one named $B$, and an arrow $A\to
+B$. We would like to map this category to ordered natural numbers, where the objects are
+$1,2,\dots$ and the relation is $\leq$ by its usual meaning. Here are two functors we can
+try to naturally transform:
+\begin{eqnarray*}
+    F(A) = 2 &;& F(B) = 5\\
+    G(A) = 3 &;& G(B) = 4
+\end{eqnarray*} 
+These are valid functors, because both $2 \leq 5$ and $3 \leq 4$ are arrows that exist in
+the target category.
+
+But to have a natural transformation from the $F$ functor to the $G$ functor, we need
+to find those two $\alpha$s to complete the square. We can't just make them up:
+they have to be part of the set of mappings at the $(\Nat, \leq)$ category that both
+functors map to. There is an arrow $2\to 3$ in that category, so we can do the walk
+of $F(A) \to G(A) \to G(B)$, or $2 \leq 3 \leq 4$.  But we don't have $5\leq 4$,
+so the walk from $F(A)\to F(B) \to G(B)$ isn't possible using the arrows the target
+category gave us.
+
+Given that all our arrows go uphill, we will need transformations where $F(A)$ is downhill
+from both intermediate points $G(A)$ and $F(B)$, and $G(B)$ is uphill from both
+intermediate points. For example, given
+\begin{eqnarray*}
+    F(A) = 2 &;& F(B) = 3\\
+    G(A) = 4 &;& G(B) = 5
+\end{eqnarray*} 
+there is a natural transformation from $F$ to $G$ (but not from $G$ to $F$).
+
+If we wanted to start with a category with more than two elements, we would need to show
+that this relation holds for {\em any} pair of elements with an arrow between them.
+
+\subsection{Chaining}
+Further, all these commutative diagrams chain together. If we had English ($E$), Portuguese ($E'$), and
+Russian  ($E''$) corpora, we could draw:
 
 \Comdiag{E \ar[r, "f_1"] \ar[d, "\pi"'] \& E'   \ar[r, "f_3"] \ar[d, "\pi'"] \& E'' \ar[d, "\pi''"]\\
         B \ar[r, "f_2"'] \& B' \ar[r, "f_4"'] \&B''
@@ -299,6 +386,12 @@ It is self-evident that if the left square and the right square commute, than an
 from upper left to lower right will be equivalent. This becomes especially interesting
 when we have mappings across different contexts: if we can map from multisets to preorders
 and preorders to graphs, we just got a multiset-to-graph generator for free.
+
+Natural transformations also chain: if there exists an n.t. from functor $F$ to functor
+$G$, and from functor $G$ to functor $H$, then we have a natural transformation from $F$
+to $H$. If we have three categories and natural transformations $F$ and $G$ from first to
+second, and $H$ and $I$ from second to third, then $H\circ F$ must have a natural
+transformation to $G\circ I$.
 
 \subsection{Universal properties}
 Consider the cross product of two sets, $A\times B$. There is an obvious mapping from
@@ -313,7 +406,7 @@ part} functions:
 
 This is called a span and can also be turned into a little inline diagram as
 $X \leftarrow (X\times Y) \rightarrow Y$.
-Of course, there are other things we could put at the top of the fork, maybe some other
+Of course, there are other things we could put at the top of the fork, some other
 set $A$ that maps both ways: $X \leftarrow A \rightarrow Y$.
 But $X\times Y$ is unique in this capacity because every $A$ and its span can be expressed
 via a morphism to $X\times Y$. Here is the commutative diagram:
@@ -324,14 +417,17 @@ via a morphism to $X\times Y$. Here is the commutative diagram:
     \& A \ar[ul, "\forall f"] \ar[ur, "\forall g"'] \ar[uu, dashrightarrow, "f\times g"]
     }
 
-As noted in the diagram, this is trivial to generate as the ordered pair $(f(a), g(a))$.
-For any $f$ and $g$, you could go the short way to map $A$ to $X$ or $Y$, but you are
-guaranteed that there is also a pair of mappings $A\to (X\times Y) \to X$ and $A\to
-(X\times Y) \to Y$ that are
-the long commute to the same point.  Put differently, you can have an arbitrary
-span composed of any object and mappings iff you can write down a map $A\to (X\times
-Y)$. That any span can be expressed by going through $X\times Y$ makes that object a
-sort of universal spanner.
+As noted in the diagram, the $A\to (X\times Y)$ morphism is trivial to generate as
+the ordered pair $(f(a), g(a))$.  For any $f$ and $g$, you could go the short way to
+map $A$ to $X$ or $Y$, but you are guaranteed that there is also a pair of mappings
+$A\to (X\times Y) \to X$ and $A\to (X\times Y) \to Y$ that are the long commute to the
+same point.  Put differently, you can have an arbitrary span composed of any object and
+mappings iff you can write down a map $A\to (X\times Y)$. That any span can be expressed
+by going through $X\times Y$ makes that object a sort of universal spanner. Returning
+to the problem of combining Dewey and LoC numbers, you could come up with all sorts
+of other clever combination schemes besides the ordered pair $($Dewey, LoC$)$, but
+you are guaranteed that all of them must reduce to this simpler scheme. This sounds
+obvious, but people put a lot of time into trying to be clever.
 
 One can generate other universal properties for other common diagrams and operations.
 As per the names, the intent is that the universal properties do say something fundamental
@@ -340,6 +436,7 @@ natural way to move from one domain to another.
 
 \nocite{awodey:category}
 \nocite{riehl:category}
+\nocite{lawvere:conceptual}
 \bibliographystyle{plainnat}
 \bibliography{cat_notes}
 
