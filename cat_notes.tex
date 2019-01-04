@@ -70,6 +70,7 @@ A function $f:A\to B$, aka a mapping, assigns a value to all of the elements in 
 some element(s) in the set $B$. Note that if $A=\{\emptyset\}$ then you still have a function, though
 it is vacuous.
 
+\paragraph{Level 1: Objects=Elements}
 We can draw this function via arrows, maybe
 
 \begin{center}
@@ -83,6 +84,7 @@ We can draw this function via arrows, maybe
 Here, the nodes in the graph are single elements in the sets, and the arrows describe
 where each element goes.
 
+\paragraph{Level 2: Objects=Sets}
 The function notation $f:A\to B$ is itself a tiny graph. If there were also a function
 $g:C\to B$, we could construct a diagram that looks like the above element-by-element graph, but with sets at the nodes instead of single elements:
 
@@ -96,8 +98,17 @@ A closed function $f:A\to A$ maps from a set to itself, so we'd draw it as a loo
 
 \Comdiag{A\ar[loop right]}
 
-I think a lot of math in the early- to mid-1900s worked at this level, defining as much as
-possible via sets and mappings between sets. But we can bundle further. In the last
+Math in the late 1800s to early 1900s worked at this level, during which axioms
+were developed and used to derive a foundation for anything mathematicians could think of.
+\comment{
+One of the big sticking points was Russel's paradox: given $S$= the set of all sets that
+do not include themselves, is $S$ an element of $S$? This showed that we need more
+structure than just sets and mappings, and is one of the things that led to category
+theory. More below.
+}
+
+\paragraph{Level 3, Categories: Bundling functions}
+But we can bundle further. In the last
 diagram we had a single function. But consider a collection of mappings (aka homomorphisms)
 from set $A$ to set $B$, $\Hom{set}(A, B)$.
 The first diagram with three elements in $A$ and
@@ -111,10 +122,12 @@ they'd be tentacles. But there is indeed a lot of power there: with \Re\ represe
 real numbers, we can now summarize all real one-variable functions with the diagram 
 \Comdiag{\Re\ar[loop right]}
 
-We are approaching the level at which category theory speaks. But we can go one step further, and put
-this into a box as well, and now it is a single node in our graph. Let the above loop of
-all functions $f:\Re\to\Re$ be $\bf R$, and let's keep its company with
-the set of all functions on the natural numbers, $g:\Nat\to\Nat$, notated {\bf N}.
+\paragraph{Level 4, Functors: Objects=categories}
+We are approaching the level at which category theory speaks. But we can go one step
+further, and put a bundle of objects plus bundle of homomorphisms into a box as well, and
+now it is a single node in our graph. Let the above loop of all functions $f:\Re\to\Re$
+be $\bf R$, and let's keep its company with the set of all functions on the natural
+numbers, $g:\Nat\to\Nat$, notated {\bf N}.
 
 \Comdiag{{\bf N}\ar[r, "F"] \& {\bf R}}
 
@@ -145,8 +158,8 @@ paired with multiplication) as different things. Some bundles:
 the formal definition)
     \item {\em Graph}: A collection $(V, A, src, tgt)$:
     \items{
-        \item $V$ a set (vertices)
-        \item $A$ a set (arrows)
+        \item $V$: a set (vertices)
+        \item $A$: a set (arrows)
         \item $src:A\to V$ a function giving arrow sources
         \item $tgt:A\to V$ a function giving arrow targets
     }
@@ -174,10 +187,30 @@ Associativity and identity are going to be part of the definition of categories,
 so there won't be a lot of discussion of things on the list before monoids.
 Groups are reserved for contexts where the sense of reversibility or symmetry make sense.
 
+\subsection{Completing a group; freedom} Say we have an element $a$ and some function $f$. If
+$f(a,a)=a$, then we have a complete group or monoid, with $a$ the identity and its own
+inverse.  But say that this is not the case, and $f(a,a)=b$. Then we can incrementally fill in what is
+needed: the value $f(a,b)=c$, an identity where $f(a, id)=a$, $f(b,c)=d$, and so on. 
+For example, given an element $1$ and the operation $+$, completing the monoid generates
+the positive integers.
+
+In these parts, the word {\em free} has informal, not-quite-defined usage
+\citep{leinster:basic}, but my impression is that it generally refers to the collection
+of the fewest parts needed to complete or generate the system.  The definition of
+{\em group} above is a template; the free group is a minimal exemplar that fits that
+template. The word {\em the} is often used, because for many forms $F$, one free $F$
+is isomorphic to any other free $F$.
+
+The {\em free monoid} refers to lists. Elements $\{a, b, c\}$, the empty set in the r\^ole
+of identity,  and the operation
+of concatenation generate lists like $[a]$, $[a,b]$, $[a,b,b,a,c,c]$, \dots. It's a
+record of a walk from element to element. The free monoid with initial alphabet $\{1\}$
+gets its own notation, $\underline 1$, and is isomorphic to the positive integers.
+
 \subsection{Category constraints}
-A category is a bundle of elements as per the end of the chain of arrow
-abstractions. Bundle together some things that will be nodes (herein, objects), and
-the sets of mappings between some or all of them.
+A category is a bundle of elements as per Level 3 of the chain of arrow abstractions
+in Section \ref{levelsec}. Bundle together some things that will be nodes (herein,
+objects), and the sets of mappings between some or all of them.
 
 You get to pick which mappings you will put in the set of mappings, with a few simple conditions.
 You don't have to include every mapping (herein, morphism) from node to node, which as above may cover all of one-variable high school algebra with a single arrow. But for every set we do have to include
@@ -192,23 +225,25 @@ but all you have to do is read $\circ$ as {\em of}, as in {\em $g$ of $f$}, whic
 exactly how people read $g(f(x))$. Really not a big deal at all.}
 
 Having these additional rules means we can't just throw out any old set of nodes and edges
-and call it a category, but it's not hard to add these extra mappings as needed,
+and call it a category, but given any old set it's not difficult to generate a complete
+category by adding identities and chains of functions like $h\circ g\circ f$ as needed,
 to the point that people usually don't even bother drawing the loops to mark the
 identities.
 
 Functors, as above, are a bundle of mappings of objects to objects plus mappings from
-functions to functions.  We want them to represent a sensible transformation from one
-context to another, so a functor $F$ has to have these constraints on how it maps
-functions and objects:
+functions to functions. We want them to represent a sensible transformation from one
+context to another, and chaining functors is going to be central here on in, so a
+functor $F$ has to have these constraints on how it maps functions and objects:
 \items{
     \item $F(f:A\to B) = F(f): F(A)\to F(B)$
     \item $F(id_A) = id_{F(A)}$
     \item $f\circ g = F(f)\circ F(g)$
 }
+This set of constraints is what we'll need for Level 5 below.
 
 \section{Starting to map}
 The nodes in all the graphs above could be anything, including the bundles of elements from
-Section \ref{bundlesec}.
+Section \ref{bundlesec}. From here on, famous categories will be in boldface.
 
 Let ${\bf PrO}$ be the set of all preorders and ${\bf Graph}$ be the set of graphs. A
 single preorder is a set of relations of the form $a \leq b$, and we could replace the $\leq$
@@ -219,33 +254,34 @@ That is, $f:{\bf PrO}\to {\bf Graph}$ makes as much sense as $f:\Re \to \Re$. Se
 a mapping for every element of ${\bf PrO}$, and we have a category diagram with two
 objects and one arrow representing all homomorphisms mapping all partial orders to graphs.
 
-A monoid as defined above is already a category. Objects are the set of elements $M$
-on which the monoid is defined, we require a function $f:M\to M$ which must be
-associative, and we require an identity mapping $f(id, a)= a$ (in fact, two, because
-$f(a, id)$ also equals $a$). By definition, all the boxes are checked.
-
-But we can also express a monoid in a manner that doesn't fit the intuitive approach
-of having a set of elements, some functions between them, and the usual function
-composition. I'm not clear on the benefits, but is is definitely cooler. Here are the
-components of another category built from a monoid $(S, id, f)$:
+An arrow in a partial order maps from a single element to a single element; a monoid's
+function maps from two input elements to one output. One way to do this, currying, will be
+covered later, but our definition of category already does have one binary operation
+built in: the composition rule. This gives us the first example of a category that
+doesn't fit the intuitive approach of having a set of elements, some functions between
+them, and the usual function composition. Here are the components of a category built
+from a monoid $(S, id, f)$:
 \items{
     \item Objects: following the name {\em monoid}, this category has exactly one object.
 Call it \S.
     \item Morphisms: For every monoid element $M$, define a morphism $M:\S\to\S$. Include
 an identity element $id: \S\to\S$. That is, the same mapping, $f(\S)=\S$,
-appears several times in the same category, distinguished by different labels.
+appears several times in the same category, with each arrow distinguished by different labels.
     \item Composition: $M_1\circ M_2 \equiv f(M_1, M_2)$.
 }
 A category requires a composition function that is associative and correctly handles the
 identity morphism, and we get exactly that from the monoid requirements on $f$. More on
 this below.
 
+\paragraph{Level 5: the category of categories}
 Categories are themselves a bundle like the ones from Section \ref{bundlesec}: a set
-of objects paired with a set of morphisms between them. So they too could be a node in
-one of the above diagrams, giving us the category of categories, ${\bf Cat}$.\footnote{Authors refer
-to {\em the} category of categories, and I'm unclear whether an alternative cat-of-cats
-exists or what it would look like, so we may be at the top here---there's no category of
-categories of categories.}
+of objects paired with a set of morphisms (at this level, functors) between them. So
+they too could be a node in one of the above diagrams, giving us the category of
+categories, ${\bf Cat}$.\footnote{Authors refer to {\em the} category of categories,
+and I'm unclear whether an alternative cat-of-cats exists or what it would look like,
+so we may be at the top here---there's no category of categories of categories.}
+Notice that the rules for functors, having an identity and associativity, is exactly the
+requirement we put on the set of homomorphisms inside of a single category.
 
 Things are already getting self-referential: ${\bf PrO}\to {\bf Graph}$ is a
 node-and-arrow graph representing an operation involving the set of node-and-arrow
@@ -253,17 +289,60 @@ graphs. For ${\bf Cat}$, we can show that ${\bf Cat}\to {\bf Graph}$, thus drawi
 graph for two categories to represent how categories and graphs relate.  Mathematicians
 love this stuff.
 
+\subsection{Types} Consider the sets $\Re$, $\Nat$, and strings of letters A-Z, and the
+category of mappings between these three objects. This is the beginning of a description
+of a programming language. C basically runs entirely on these three types. Functions often
+work on structures that combine these types---at the least, arrays of several
+elements---which we can achieve by currying, but I'm not getting in to that. But just as a
+free monoid is a path along a set of elements, a program is a path selecting some
+functions from the category listing all options. This seems like a nice way of thinking
+about a lot of different types of categories.
+
+
+\subsection{Examples} We already mapped $PrO$ and $Graph$, and we can go in the other
+direction from $Graph$ to $PrO$ using similar thinking.
+
+A {\em partial order} is a preorder that also has the condition that if $a\leq b$ then
+$b\not\leq a$ (when $a\neq b$). Because $\leq$ is transitive, that means we can't
+develop a sequence where $a\leq b$, $b\leq c$, $c\leq a$.
+A {\em tree} is a graph with no cycles, meaning exactly the same property holds for arrows
+in the set of trees. We therefore have the same mapping from partial orders to trees and
+back.
+
+We'd like to touch every node in the tree (span the tree), by starting at a set of
+nodes, then following arrows to hit the next node, following all arrows from that node, and so on.
+Will this work starting at a single node; will it always be possible? Maybe you have an
+image of a tree in your head and the answer is obvious to you: no to both questions.
+But proving this using the four-part definition of a graph above may be a pain.
+
+Define a minimum in a partial order to be a value such that there is no $x\neq a$ such that
+$x\leq a$, and to add jargon, let an $\omega$-chain be a sequence $a\leq b\leq
+c\dots$. With an infinite number of elements (like the number line), a chain may not have
+a minimum, and because we have a partial order, there may be multiple chains that don't
+intersect. Every element in a partial order is on some $\omega$-chain, though it may be a
+single element by itself, or a chain with no minimum. So if there's a chain with no
+minimum, we can't span it.  If there are only chains with minima, we can span the full
+set by starting at all minima, then walking up their chains.
+
+Now use the functor mapping the category of partial orders to the category of trees,
+and we have set the procedure to span any given tree and given conditions for when it will work,
+without dealing with the graph elements $V$, $A$, $src$, and $tgt$ at all.
+For me, I initially did it wrong with trees, because I did a proof-by-picture using
+a finite tree with minimum elements, but from the perspective of a partial order the
+full proof came more easily.
+
 \section{Where commuting gets us} It's already potentially interesting that we can
-express mappings between different concepts like orderings and graphs, but things don't get
-interesting until we have multiple paths to the same place.
+express mappings between different concepts like orderings and graphs, but things get more
+interesting when we have multiple paths to the same place.
 
 For example,
 \citet{spivak:category} describes multisets as sets of elements $E$ with a set $B$ of
 symbol names, and a map $\pi:E\to B$. So, for example, we could replace all the words in a
-book with numbers, producing a sequence $e_1, e_2, \dots$, then have a dictionary
-of the words, and $\pi$ tells us that $e_{250}$ maps to {\em dog}. We
+book with numbers, $e_1$={\em the}, $e_2$={\em and}, $e_{250}$={\em dog}, \dots, and thus
+turn a text into a sequence like $e_1, e_{250}, e_2, e_1, \dots$, then have a lookup
+function $\pi$ which tells us that $e_{250}$ maps to {\em dog}. We
 may have another set of elements and symbols in another context, maybe a corpus in
-another language, so we'll need an element mapping $f_1:E\to E'$ and a symbol mapping
+another language, so we'll need an element mapping placeholders $f_1:E\to E'$ and a symbol mapping
 $f_2:B\to B'$. See the flash cards for formalization.
 
 Here is a diagram including both
@@ -281,23 +360,27 @@ either apply the symbol map $\pi$ first to get to $B$ and then step from the unp
 primed corpus (calculating $f_2\circ\pi(e)$), or first step to the primed corpus via $f_1$ and then
 map from $E$ to $B$ on that side (calculating $\pi\circ f_1(e)$).
 
-When are both routes identical? This is often an interesting question in its own right.
+When are both routes identical? This seems to me an interesting question in its own right.
 For books and word lists in Portuguese and English, I'd guess there's a natural
 way to map simple nouns: finding that an element in the $P$ corpus is {\em cão},
-then translating that word to the Portuguese-to-English dictionary to find that it means {\em dog}
+then using the Portuguese-to-English dictionary to find that it means {\em dog}
 is likely equivalent to the commuted procedure of first finding the element in the
-English corpus matching our element of interest, then looking up that that element in
-the $E$ corpus maps to {\em dog}. This is going to be easy and natural
+Portuguese corpus matching our element of interest, then looking up that that element in
+the $E'$ corpus maps to {\em dog}. This is going to be easy and natural.
 
-Doing the same with {\em saudade} is going to take some forcing. It seems to me that
-these exceptions are interesting in their own right: we're going to generate a list of
+Doing the same with {\em saudade} is going to take some forcing.
+We're going to generate a list of
 categories that all behave similarly and relate nicely, but what about those things
 that have to be thrown out to fit the categorical mold? The textbooks that focus on
 that mold naturally exclude them, but by definition, standardization requires jettisoning 
 the unique.
 
-Indeed, one way to nail down a relationship is to just cull down what is in your sets. The set
-of books, $B$, can be cataloged either via the Library of Congress classification system
+Indeed, one way to nail down a relationship is to just cull down what is in your sets.
+If you need a functor mapping from preorders to partial orders, use the identity functor,
+and just ignore everything in the set of partial orders that isn't a preorder. Now you
+have a lot to say about a set of measure zero within the space of preorders.
+
+The set of books, $B$, can be cataloged either via the Library of Congress classification system
 (a set of call numbers $L$), or the Dewey decimal system (another set of call numbers
 $D$). Let us pair together call numbers referring to the same book, in the cross-product
 space $D\times L$. The full cross product matching every Dewey number with ever LoC
@@ -322,40 +405,44 @@ the same at the category level.
 
 Given two categories {\bf C} and {\bf D}, we can define ${\rm Fun}({\bf C}, {\bf D})$ as
 the category of functors between the two objects, and the set of arrows in that category
-will be the natural transformations. This motivates defining and identifying natural
-transformations, so we can bring the functors mapping {\bf C} to {\bf D} into the
-categorical club.
+will be the natural transformations. So defining and identifying natural
+transformations lets us bring the category of functors into the categorical club.
 
-Start with two categories and two functors, $F$ and $G$, each independently mapping the first
-category to the second.  Pick two elements from the first category, $a$ and $b$, and a mapping
-$h:a\to b$.  We want mappings $\alpha_a$ and $\alpha_b$ in the second category so that
+Start with two categories and two functors, $F$ and $G$, each independently mapping the same first
+category to the same second category. For the rest of the discussion, almost every element in the discussion
+to follow ($\alpha_a, \alpha_b, F(a), F(h), G(b), \dots$ below) lives in the second category.
+This is different from the English/Portuguese translation, where there was no specified
+space in which everything lived, and $f_1$ and $f_2$ lived in an {\em ad hoc} space of
+mappings between multisets.
 
-\Comdiag{F(a)  \ar[r, "\alpha_a"] \ar[d, "F(h)"] \& F(a)  \ar[d, "G(h)"]\\
-        G(a) \ar[r, "\alpha_b"] \& G(b)
+With that caveat and context in mind, pick two elements from the first category, $a$
+and $b$, and a mapping $h:a\to b$.  We want mappings $\alpha_a$ and $\alpha_b$ in the
+second category so that
+
+\Comdiag{F(a)  \ar[r, "\alpha_a"] \ar[d, "F(h)"] \& G(a)  \ar[d, "G(h)"]\\
+        F(b) \ar[r, "\alpha_b"] \& G(b)
     }
 
 The functors are a natural transformation if, for any two elements of the first category,
-we have $\alpha$s that make this square commute. Note that all of $F(a), F(h), G(b),
-\dots$ are objects or mappings in the second category, and we require the $\alpha$s to
-be as well. If we have all this, then we have the sort of naturalness we seek: you can
+we have $\alpha$s that make this square commute.
+ If we have all this, then we have the sort of naturalness we seek: you can
 start in the $F$-transformed version and walk from $F(a)$ to $F(b)$ and then walk over to
 the $G$-transformed version and get to $G(b)$; or you can commute the order and
 $\alpha$-walk over to the $G$-transformed version first and then from $G(a)$ to $G(b)$.
 
 Here is a failed attempt.
-Consider the category consisting of a single object $A$, one named $B$, and an arrow $A\to
-B$. We would like to map this category to ordered natural numbers, where the objects are
-$1,2,\dots$ and the relation is $\leq$ by its usual meaning. Here are two functors we can
-try to naturally transform:
+Consider the category consisting of a single object $a$, one named $b$, and an arrow $a\to
+b$. We would like to map this category to ordered natural numbers, $(\Nat, \leq)$, with
+$\leq$ by its usual meaning. Here are two functors we can try to naturally transform:
 \begin{eqnarray*}
-    F(A) = 2 &;& F(B) = 5\\
-    G(A) = 3 &;& G(B) = 4
+    F(a) = 2 &;& G(a) = 3\\
+    F(b) = 5 &;& G(b) = 4
 \end{eqnarray*} 
-These are valid functors, because both $2 \leq 5$ and $3 \leq 4$ are arrows that exist in
-the target category.
+Both $2 \leq 5$ and $3 \leq 4$ are arrows that exist in the target category, so we have
+valid places to which we can map the relation $1\leq 2$ and so we have two valid functors.
 
 But to have a natural transformation from the $F$ functor to the $G$ functor, we need
-to find those two $\alpha$s to complete the square. We can't just make them up:
+to find those two $\alpha$s to complete the square. As noted above, they
 they have to be part of the set of mappings at the $(\Nat, \leq)$ category that both
 functors map to. There is an arrow $2\to 3$ in that category, so we can do the walk
 of $F(A) \to G(A) \to G(B)$, or $2 \leq 3 \leq 4$.  But we don't have $5\leq 4$,
@@ -366,8 +453,8 @@ Given that all our arrows go uphill, we will need transformations where $F(A)$ i
 from both intermediate points $G(A)$ and $F(B)$, and $G(B)$ is uphill from both
 intermediate points. For example, given
 \begin{eqnarray*}
-    F(A) = 2 &;& F(B) = 3\\
-    G(A) = 4 &;& G(B) = 5
+    F(a) = 2 &;& G(a) = 3\\
+    F(b) = 4 &;& G(b) = 5
 \end{eqnarray*} 
 there is a natural transformation from $F$ to $G$ (but not from $G$ to $F$).
 
@@ -394,6 +481,8 @@ second, and $H$ and $I$ from second to third, then $H\circ F$ must have a natura
 transformation to $G\circ I$.
 
 \subsection{Universal properties}
+A universal is any statement of the form, {\em for all $x$ there exists a unique $y$}.
+
 Consider the cross product of two sets, $A\times B$. There is an obvious mapping from
 $A\times B \to A$ and $A\times B \to B$---just drop the unneeded $B$ or $A$ part. Here
 is the shape of this as a diagram, with $\pi_1$ and $\pi_2$ being the {\em drop one
@@ -417,7 +506,7 @@ via a morphism to $X\times Y$. Here is the commutative diagram:
     \& A \ar[ul, "\forall f"] \ar[ur, "\forall g"'] \ar[uu, dashrightarrow, "f\times g"]
     }
 
-As noted in the diagram, the $A\to (X\times Y)$ morphism is trivial to generate as
+As per the annotation in the diagram, the $A\to (X\times Y)$ morphism is trivial to generate as
 the ordered pair $(f(a), g(a))$.  For any $f$ and $g$, you could go the short way to
 map $A$ to $X$ or $Y$, but you are guaranteed that there is also a pair of mappings
 $A\to (X\times Y) \to X$ and $A\to (X\times Y) \to Y$ that are the long commute to the
@@ -437,6 +526,7 @@ natural way to move from one domain to another.
 \nocite{awodey:category}
 \nocite{riehl:category}
 \nocite{lawvere:conceptual}
+\nocite{leinster:basic}
 \bibliographystyle{plainnat}
 \bibliography{cat_notes}
 

@@ -41,3 +41,4 @@
 
 \def\Hom#1{\ensuremath {\rm Hom}_{\rm \bf #1}}
 
+\def\comment#1{}

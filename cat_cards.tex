@@ -300,7 +300,7 @@ Y)\backslash \sim$ where $z\sim f(z)$ and $z\sim g(z)$. So,
 
 \Card{Power set}{For a given set $S$, the set of subsets of $S$. Here notated ${\mathbb P}(S)$}
 
-\card{Notation}{$\Omega$}{The set $\{$True, False $\}$}
+\card[Notation]{$\Omega$}{The set $\{$True, False $\}$}
 
 \Card[Proposition]{For an arbitrary set $S$, how do $\Omega$ and ${\mathbb P}(S)$ relate?}{
 $\exists$ an isomporphism $f:$\Comdiag{ \Hom{Set}(S,\Omega) \arrow[r,"\cong"] \& {\mathbb P}(S) }
@@ -558,6 +558,26 @@ homomorphisms exist}{
     \item $src:A\to V$ a fn giving arrow heads
     \item $tgt:A\to V$ a fn giving arrow tails
     }
+}
+
+\card{Supremum}{
+    Least upper bound of a set $S$. For any $s\in S$, the supremum $v$
+    \items{
+    \item s\leq v
+    \item If $\exits w \ni s\leq w \forall s\in S$, $v\leq w$.
+    }
+}
+
+\card{$\omega$-chain in a poset}{
+    A sequence $a\leq b \leq c\leq \dots$.
+
+    Repeats are OK: $a\leq b\leq b\leq b\dots$.
+
+}
+\card{$\omega$-complete partial order, strict $\omega$-CPO}{
+    Any $\omega$-chain has a supremum.
+
+    Strict: any $\omega$-chain also has a minimum element.
 }
 
 \card[Exercise]{Express a unidirectional bipartite graph via a commutative diagram with a span}{
