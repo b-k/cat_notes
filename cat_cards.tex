@@ -25,6 +25,10 @@
 \Card{Domain of $f$}{ For $f:X\to Y$, $X$.}
 \Card{Codomain of $f$}{ For $f:X\to Y$, $Y$.}
 
+\Card{Injective}{$x\neq y \Rightarrow f(x)\neq f(y)$}
+
+\Card{Surjective}{Given $f:X\to Y$, $\forall x\in X$, $\exists y\in Y \ni f(x)=y$}
+
 \Card{Composition of $f$ and $g$}{
 As a diagram,
 \Comdiag{
@@ -142,6 +146,10 @@ isomorphic to $C$.
     \& A \ar[ul, "\forall f"] \ar[ur, "\forall g"'] \ar[uu, dashrightarrow, "f\times g"]
     }
 
+}
+
+\card{Projection (outside of cat theory)}{
+    A function such that $f(x)=f(f(x))$.
 }
 
 \Card[Notation]{$X\sqcup Y$}{
@@ -310,23 +318,23 @@ $\exists$ an isomporphism $f:$\Comdiag{ \Hom{Set}(S,\Omega) \arrow[r,"\cong"] \&
 marking an element true iff it is in $S'$.}
 
 \Card{Epimorphism}{
-    $F$ is {\em epic} or an {\em epi} iff $g_1 f = g_2 f \Rightarrow g_1 = g_2$.
+    $F$ is {\em epic} or an {\em epi} iff $g_1\circ f = g_2\circ f \Rightarrow g_1 = g_2$.
 
     \Comdiag{
     X \arrow[r,"f"] \&Y \arrow[r, shift left,"g_1"] \arrow[r,"g_2"'] \& Z
     }
 
-    $f$ is injective iff it is epic.
+    $f$ is surjective iff it is epic.
 }
 
 \Card{Monomorphism}{
-    $F$ is {\em monic} or {\em mono} iff $f g_1 = f g_2 \Rightarrow g_1 = g_2$.
+    $F$ is {\em monic} or {\em mono} iff $f\circ g_1 = f\circ g_2 \Rightarrow g_1 = g_2$.
 
     \Comdiag{
     Z \arrow[r, shift left,"g_1"] \arrow[r,"g_2"'] \&Y \arrow[r,"f"] \& X
     }
 
-    $f$ is surjective iff it is monic.
+    $f$ is injective iff it is monic.
 }
 
 \Card{Isomorphism}{

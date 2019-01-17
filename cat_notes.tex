@@ -85,6 +85,8 @@ Here, the nodes in the graph are single elements in the sets, and the arrows des
 where each element goes.
 
 \paragraph{Level 2: Objects=Sets}
+Level 1 showed elements internal to the sets, and at the next level we'll look externally,
+treating each set as single object.
 The function notation $f:A\to B$ is itself a tiny graph. If there were also a function
 $g:C\to B$, we could construct a diagram that looks like the above element-by-element graph, but with sets at the nodes instead of single elements:
 
@@ -395,6 +397,9 @@ This is a {\em pullback}. There is information in the pairing, and maybe even
 information in the list of books and call numbers that can't be found from $D\times_B L$
 and are now lost in the stacks.
 
+This example may seem obvious, but in Section \ref{universalsec} we'll generalize this
+to other contexts.
+
 \subsection{Natural transformations}
 If there is a mapping from one context to another where (apply internal function,
 then jump) produces the same outcome as (jump, then apply internal function), we call
@@ -480,7 +485,7 @@ to $H$. If we have three categories and natural transformations $F$ and $G$ from
 second, and $H$ and $I$ from second to third, then $H\circ F$ must have a natural
 transformation to $G\circ I$.
 
-\subsection{Universal properties}
+\subsection{Universal properties}\ref{universalsec}
 A universal is any statement of the form, {\em for all $x$ there exists a unique $y$}.
 
 Consider the cross product of two sets, $A\times B$. There is an obvious mapping from
@@ -518,10 +523,221 @@ of other clever combination schemes besides the ordered pair $($Dewey, LoC$)$, b
 you are guaranteed that all of them must reduce to this simpler scheme. This sounds
 obvious, but people put a lot of time into trying to be clever.
 
-One can generate other universal properties for other common diagrams and operations.
-As per the names, the intent is that the universal properties do say something fundamental
-about the relationship diagram, and that natural transformations do describe the
-natural way to move from one domain to another.
+You could do the same in other categories. The product of two graphs could be similarly
+constructed, by generating the grid of all vertex pairs $X\times Y$, then including all
+arrows from one pair to another if either base graph had an arrow for its corresponding
+vertices. Projecting back to the original graphs would also be to just drop the other
+dimension.
+
+Groups seem awkward to me because they reveal how the $X\times Y \to X$ mapping isn't
+necessarily so neat. For $(\Re, \cdot)$ and the span $3 \leftarrow 3\times 4 \rightarrow 4$, the
+first arrow is $f_1(x)=x/4$ and the second $f_2(x)=x/3$, which is not especially general.
+But then, recall that even identity arrows are item specific: the arrow $3\to 3$ and $4\to
+4$ are distinct parts of the category of $(\Re, \cdot)$, even though we have a convenient
+way to express them all collectively.
+
+Anyway, does it work? For any $a$, the arrow $a\to 3$ must be $f_a(a)=3/a$, and the arrow to
+$3\times 4$ must be $f_{x}(a)=3\cdot 4/a$. Commutativity works: $f_1\circ f_x(a) = 3\cdot
+4/a\cdot 1/4 = 3/a = f_a(a)$, and the same for the other leg pointing to $4$.
+
+This gives us a nice coincidence between the set concept of $X\times Y$ and the arithmetic
+concept. I'd always learned it as a sort of metaphor, where if you have three dots on the
+$x$ axis and twelve dots on the $y$ then you'd have twelve $(x,y)$ pairs. When the counts
+go to infinity, well, we've already got the pattern down for finite elements so don't
+worry about it. Here we have a more formal relationship, that any transformations into $X$
+and into $Y$ have to have a unique corresponding transformation into $x\times y$.
+
+
+
+
+For a partially ordered set, the only thing we have to work with is the $\leq$ relation.
+If $x\leftarrow (x\times y) \rightarrow y$ means $x\leq (x\times y) \geq y$, and we want
+the unique $(x\times y)$ that meets this requirement, then we need
+$(x\times y)\leq \min(x,y)$ to meet the requirements at all, and 
+$\min(x,y)\leq (x\times y)$ because otherwise if $A = \min(x,y)$ then $x\leq A$ and $y\leq
+A$ but the unique map $A\leq (x\times y)$ won't exist.
+
+The product notation $x\times y$ doesn't seem far-fetched for $\min(x,y)$. We could extend
+it to multiple elements, like $x\times y\times z = \min(x,y,z)$. We would want a
+multiplicative identity, which for a finite set $S$ would be $\max(S)$, because
+$\min(x,\max(S)) = x$. The multiplicative identity is what you might get if you
+went the other way and had zero terms in your product, so the commutative diagram above
+reduces to {\em there exists a unique mapping $A\to X\times Y$} with no additional
+conditions. This brings us to terminal sets.
+
+\paragraph{Terminal sets} A terminal set $T$ is another universal property of a
+category. Here, there exists a unique mapping $A\to T$, for any $A$. Generally, this
+means that the terminal set has one element, so every element of $A$ has to map to
+that single element.
+
+Groups: for a group with only one element, that element has to be the multiplicative identity, $1$.
+
+Sets: doesn't matter the name of the element, but as above, there can be only one.
+
+Posets: Let the single element in the terminal set be $t$. For any $a$, $a\leq t$. So, $t$
+is $\max(A)$; else if $A$ is inifinite the terminal set doesn't exist, it seems to me.
+
+Graphs: we need one vertex and one arrow, and the arrow must therefore have source and
+target equal to that one vertex. A point pointing to itself.
+
+Back to products, all of these are indeed the multiplicative identity for the given
+concept of product.
+
+We can't quite define the limit as the multiplicative identity, though that seems to be
+the sort of  promise the authors make about the universality of universals. For example,
+it doesn't work for rings, for which the terminal set is $\{0\}$. There's probably a way
+to make this work, but it characterizes $+$, not $\times$ as the product in that context.
+
+One way to define a thing is to just declare it: $a$ times $b$ is what you get when you
+add $a$ items $b$ times over. Another way is to describe the properties that the thing
+has. $a$ times $b$ is the unique thing such that the above diagram commutes, and any other
+transformation that hits both $a$ and $b$ has to go through $a\times b$. Also, it has to
+have a multiplicative identity, which is the thing such that $a\times id$ is isomorphic
+to $a$ and there is no identity such that 
+
+\section{The injective retraction epic} These are some themes that seemed to repeat at
+different levels. Am not sure about how to fit them in to the overall narrative.
+
+Given a function $f:A\to B$, could we back-trace the arrows to generate a function in the opposite direction $B\to A$?
+
+First, if two elements $a_1$ and $a_2$ have the same target $b_1$, reversing the arrows
+won't give us a function, because a function maps each element to only one target.
+If $f(a_1)=f(a_2) \Rightarrow a_1=a_2$, the function is {\em injective}, and we have our
+condition of each reversed arrow hitting only one target. Note that we must have the size
+of $B$ greater than or equal to the size of $A$ for this one-to-one property to hold.
+
+Injections have a relabeling character to them, where if $f(a_1)=b_1$, then $b_1$ is
+effectively just a renaming of $a_1$. No information about $A$ is lost or merged with
+other information, though some labels in $B$ may not be used and their information
+disappears.
+
+If there is an element of $B$ that has no arrows pointing to it, then we can't reverse the
+arrows in $f:A\to B$ to get a function $B\to A$, because every element in the source set
+must have some target. If for all elements $b$, there exist some $a$ such that $f(a)=b$,
+then $f$ is surjective, aka {\em onto}. We must have the size of $A$ greater than or equal
+to $B$ for this to work.
+
+Surjections have a sectioning character.  Because we know that every $b$ back-maps to some $a$ and some $b$s
+can back-map to multiple $a$s, we could partition the set $A$ into elements that map to $b_1$,
+elements that map to $b_2$, \dots, thus producing a sectioning of $A$. Mapping from $A$ to
+$B$ loses information about what lives in each section; all information about $B$ is
+accounted for.
+
+If $f$ is both injective and surjective, then we can generate a proper function
+$f^{-1}:B\to A$. I.e., $f$ defines an isomporphism between $A$ and $B$, which must have
+the same number of elements.
+
+Injectivity requires that each element of $B$ have at {\em most} one arrow pointing
+to it; surjectivity requires that each element of $B$ have at {\em least} one arrow
+pointing to it.  So given both, the back-arrows form a function where every element in
+$B$ has exactly one arrow attached. We lose no information in either domain or codomain,
+and there is a one-to-one mapping in both directions---an isomorphism.
+
+\subsection{Retract/section}
+A {\em retraction} is a function $r:B\to A$ such that $r\circ f=1_A$. Injectivity is
+necessary. Consider near-injectivity: if both $a_1\to b$ and $a_2\to b$ and every other
+$a_n\to b_n$, then we can assign $f(b_n)=a_n$ and arbitrarily assign $r(b)=r(a_1)$,
+but for what $b$ is $r(b)=a_2$?  We don't need surjectivity of $f$, because $b$s that
+don't enter into the condition that $r(f(a_n))=a_n$ can point to wherever they please
+and we still have our retraction.
+
+A {\em section} is a function $s:B\to A$ such that $f\circ s=1_B$. We need surjectivity of
+$f$ (the one with a sectioning character), because each element of $B$ needs to
+be accounted for. We don't need injectivity, because if $a_1\to b$ and $a_2\to b$,
+arbitrarily pick $s(b)=a_1$ and the condition that $f(s(b))=b$ works.
+
+So we have a retraction iff $f$ is injective; a section iff $f$ is surjective.
+
+\subsection{Determination and choice}
+
+\cite{lawvere:conceptual} recommend drawing the retraction as
+\Comdiag{ \& B\ar[dr,dashrightarrow,"r"]\\
+A\ar[ur,"f"]\ar[rr,"id_A"]\&\&A
+}
+because now we can generalize to the determination or extension problem: does there exist
+a function $g:B\to C$ to fill in this diagram:
+\Comdiag{ \& B\ar[dr,dashrightarrow,"g"]\\
+A\ar[ur,"f"]\ar[rr,"h"]\&\&C
+}
+it's called a determination problem because $f(a)$ needs to be sufficient to derive
+$h(a)$---$g(\cdot)$ can't add information or recover information lost. So $h(a)$ is
+determined by $f(a)$---they're relabelings. If $h(a_1)\neq h(a_2)$ but $f(a_1)=f(a_2)$, $g(\cdot)$ can't
+help us.
+
+If $f$ does have a retraction $r$, then $g=h\circ r$ and the triangle commutes: $g\circ f =  h\circ r\circ f = h\circ 1_A$.
+
+Similarly, draw the section as
+\Comdiag{ \& B\ar[dr,"f"]\\
+A\ar[ur,dashrightarrow,"s"]\ar[rr,"id_A"]\&\&A
+}
+because now we can generalize to the choice or lifting problem: does there exist
+a function $f:A\to B$ to fill in this diagram:
+\Comdiag{ \& B\ar[dr,"f"]\\
+A\ar[ur,dashrightarrow,"g"]\ar[rr,"h"]\&\&C
+}
+The same sectioning story holds in the general case. There could be multiple elements of
+$B$ each pointing to $h(a)$, and $g(a)$ has to choose one of those.
+
+If $f$ has a section $s$, then $g=s\circ h$ and the triangle commutes: $f\circ g =  f\circ s\circ h = 1_B\circ h$.
+
+\subsection{Epimorphisms and monomorphisms}
+An epimorphism is a function $f$ such that, given this diagram,
+
+\Comdiag{
+    X \arrow[r,"f"] \&Y \arrow[r, shift left,"g_1"] \arrow[r,"g_2"'] \& Z
+}
+
+$f\circ g_1 = f\circ g_2$ $\Rightarrow g_1 = g_2$. If $f$ is not surjective, then
+this breaks: non-surjectivity means we have some $y$ such that there is no $f(x)=y$,
+and we can construct $g_1(y)=z_1$ and $g_2(y)=z_2$. So surjectivity is necessary, and
+it seems obvious that surjectivity is sufficient. We could have many sections in $X$, but
+once we've reduced it to one representative in $Y$ per section, we won't need to recover
+the details of each section.
+
+$F$ is {\em monic} or {\em mono} iff $f \circ g_1 = f \circ g_2 \Rightarrow g_1 = g_2$ in:
+\Comdiag{
+    Z \arrow[r, shift left,"g_1"] \arrow[r,"g_2"'] \&Y \arrow[r,"f"] \& X
+}
+Now a failure of injectivity kills the requirement, because if $f(y_1)=f(y_2)$ for
+$y_1\neq y_2$, it is easy to construct $g_1(z_1)=y_1$ and $g_2(z_1)=y_2$ and the monic
+condition fails. Injectivity is sufficient because $f$ injective means the reachable
+elements of $Z$ are just relabelings of $Y$.
+
+\subsection{Summary}
+
+Injective:
+\items{
+\item Every element of the codomain has at most one back-arrow to the domain.
+\item Those elements in the codomain that are pointed to are effectively re-labels of
+the points in the domain.
+\item All information in domain is retained; information could be lost in codomain.
+\item We can write a retraction such that we can get back to the original elements of
+$A$, meaning $r\circ f=1_A$, by just following the arrows back.
+\item Gives us the monomorphism because an initial relabeling won't affect whether $g_1$ and $g_2$ match or don't.
+}
+
+Surjective:
+\items{
+\item Every element of the codomain has at least one back-arrow to the domain.
+\item The domain may have multiple arrows pointing to the same target, thus splitting the domain
+into sections based on target elements.
+\item All information in codomain is retained; information may be lost from the domain.
+\item We can write a section such that $f\circ s = 1_B$, because surjectivity gives us that each element has an arrow, and if $f(a_1)=f(a_2)=b$,
+just pick one.
+\item The epimorphism condition is met because every element of $Y$ is relevant to the monomorphism chain.
+}
+
+Injective + Surjective = Isomorphism:
+\items{
+\item Every element of codomain has exactly one back-arrow
+\item Codomain elements are unique relabels of domain elements; all codomain labels are used.
+\item No information in domain or codomain is lost.
+\item We can write $f^{-1}$ such that $f^{-1}\circ f = 1_A$ and $f\circ f^{-1} = 1_B$.
+\item The function $f$ is both epic and monic, as no information is lost on either end.
+}
+
+
+
 
 \nocite{awodey:category}
 \nocite{riehl:category}
