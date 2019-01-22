@@ -14,6 +14,8 @@
 
 \def\Hom#1{\ensuremath {\rm Hom}_{\rm \bf #1}}
 
+\def\atype#1{\vfill\hfill {\small\sc [#1]}}
+
 \newcommand{\Card}[3][Definition]{
 \begin{flashcard}[#1]{#2}
 \vspace*{\stretch{1}}

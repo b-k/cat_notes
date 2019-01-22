@@ -22,10 +22,12 @@
 
 \Card[Intro]{Author, copyleft}{Ben Klemens, CC BY/SA/NC}
 
-\Card{Domain of $f$}{ For $f:X\to Y$, $X$.}
-\Card{Codomain of $f$}{ For $f:X\to Y$, $Y$.}
+\Card{Domain of $f$}{ For $f:X\to Y$, $X$.  \atype{Fn}}
+\Card{Codomain of $f$}{ For $f:X\to Y$, $Y$.  \atype{Fn}}
 
-\Card{Injective}{$x\neq y \Rightarrow f(x)\neq f(y)$}
+\card{Injective}{
+    Points map to different values: for $F:A\to B$, $f(x) = f(y)$ only if $x=y$.
+}
 
 \Card{Surjective}{Given $f:X\to Y$, $\forall x\in X$, $\exists y\in Y \ni f(x)=y$}
 
@@ -36,11 +38,12 @@ X \arrow[r,"f"] \&Y \arrow[r, "g"] \& Z
 }
 
 Written $g \circ f: X\to Z$.
+\atype{Any}
 }
 
 \Card{$\Hom{set}(X,Y)$}{The set of functions $X\to Y$}
 
-\Card{Equality of $f$ and $g$}{
+\Card{Equality of function}{
     $f:X\to Y$ and $g:X\to Y$ are equal iff $f(x)=g(x), \forall x \in X$
 }
 
@@ -82,10 +85,6 @@ isomorphic to $C$.
 \Card[Lemma]{Cardinality of $A$ and $B$  given
     \Comdiag{A \arrow[r,"\cong"] \&B}}{|A| = |B|}
 
-\Card{Injective}{
-    For $F:A\to B$, $f(x) = f(y)$ only if $x=y$: points map to different values.
-}
-
 
 \Card{A diagram commutes}{
     All paths from top left to bottom right are equal. E.g.,
@@ -96,9 +95,8 @@ isomorphic to $C$.
     commutes iff $g\circ f = h$.
 }
 
-\card{Endomap}{
-    A map whose domain and codomain are the same, so of the form $f:A\to A$.
-}
+\card{Endomap}{A function whose domain and codomain are the same, so of the form $f:A\to A$.}
+\card{Endofunctor}{A functor mapping a category to itself.}
 
 \card{Lifting problem}{
     aka {\em choice}
@@ -110,7 +108,7 @@ isomorphic to $C$.
 }
 
 \card{Determination problem}{
-    aka {\em extension}
+    AKA {\em extension}\\
     What are the functions $g$ that allow this diagram to commute?
     \Comdiag{
         X \ar[r, "f"] \ar[dr, "h"] \& Y \arrow [d, dashrightarrow, "g"]\\
@@ -118,9 +116,8 @@ isomorphic to $C$.
     }
     If any, $h$ is determined by $f$.
 }
-\card{monotone transformation}{If $a \leq b$ then $f(a) \leq f(b)$}
 
-
+\card{Monotone transformation}{If $a \leq b$ then $f(a) \leq f(b)$.}
 
 
 \Card{Product of two sets}{
@@ -136,6 +133,7 @@ isomorphic to $C$.
         \& X \times Y \ar[dl,"\pi_1"'] \ar[dr,"\pi_2"]\\
         X \&  \& Y 
     }
+    \atype{Hom}
 }
 
 \Card{Universal property of projections}{
@@ -145,7 +143,7 @@ isomorphic to $C$.
     X \& \& Y \\
     \& A \ar[ul, "\forall f"] \ar[ur, "\forall g"'] \ar[uu, dashrightarrow, "f\times g"]
     }
-
+    \atype{Hom}
 }
 
 \card{Involution}{
@@ -165,6 +163,7 @@ isomorphic to $C$.
     }
     Elements of $X\sqcup Y$ have a source indicator, so if $z\in X$ and $z\in Y$,
     $i_1z, i_2z \in X\sqcup Y$.
+    \atype{Hom}
 }
 
 \Card{Universal property of coproducts}{
@@ -174,6 +173,7 @@ isomorphic to $C$.
         X \ar[dr,"i_1"'] \ar[ur,"\forall f"] \& \& Y \ar[dl,"i_2"] \ar[ul,"\forall g"']\\
         \& X\sqcup Y \ar[uu, dashrightarrow, "f\sqcup g"]
     }
+    \atype{Hom}
 }
 
 \Card{Fiber product}{
@@ -258,15 +258,18 @@ $Eq(f, g)\equiv {x\in X|f(x)=f(y)}$.
     }
 }
 
-\Card{Terminal set}{
-    A set $S$ such that for every set $X$, there exists a unique mapping $f:X\to S$.
+\card{Terminal set}{A set $S$ such that for every set $X$, there exists a unique mapping $f:X\to S$.}
+
+\card{Diagram, index set}{
+    A smallish category whose mapping to a category is intended to select a few elements
+    and relations between them.
 }
 
-\Card{Limit}{
-    The unique mapping to sets (e.g., $X$ and $Y$) that allows a given cone diagram to
-    commute (see the universal property cards), with a unique mapping to corresponding
-    mappings after transformations of $X$ and $Y$ ($f(x)$, $g(y)$). 
-}
+\card{Cone}{A mapping from a diagram to a category.}
+\card{Cocone}{A mapping from a category to a diagram.}
+
+\card{Limit}{A cone $L$ such that for all other cones $A$, there exists a mapping $A\to L$. \atype{Fnctr}}
+\card{Colimit}{A cocone $L$ such that for all other cocones $A$, there exists a mapping $L\to A$. \atype{Fnctr}}
 
 \Card[Notation]{$x\sim_R y$ or $x\sim y$}{
     The equivalence relation, $R\subseteq X\times X$, where
@@ -297,6 +300,7 @@ Y)\backslash \sim$ where $z\sim f(z)$ and $z\sim g(z)$. So,
         Z \ar[d, "f"'] \ar[r, "g"] \& Y \ar[d, "i_2"] \\
         X \ar[r, "i_1"] \& X\sqcup_Z Y
     }
+    \atype{Hom}
 }
 
 \Card{Universal property for pushouts}{
@@ -308,6 +312,7 @@ Y)\backslash \sim$ where $z\sim f(z)$ and $z\sim g(z)$. So,
     \& \& X\sqcup_Z Y \arrow[ul, dotted, "f\sqcup_Z g" description]
     }
     So, $f = (f\sqcup_Z g)\circ i_1$ and $g = (f\sqcup_Z g)\circ i_2$.}
+    \atype{Hom}
 }
 
 \Card{Power set}{For a given set $S$, the set of subsets of $S$. Here notated ${\mathbb P}(S)$}
@@ -329,6 +334,7 @@ marking an element true iff it is in $S'$.}
     }
 
     $f$ is surjective iff it is epic.
+    \atype{Fnctr}
 }
 
 \Card{Monomorphism}{
@@ -339,11 +345,10 @@ marking an element true iff it is in $S'$.}
     }
 
     $f$ is injective iff it is monic.
+    \atype{Fnctr}
 }
 
-\Card{Isomorphism}{
-    A mapping that is epic and monic.
-}
+\card{Isomorphism}{A mapping that is epic and monic.}
 
 \Card[Theorem]{ If $f$ is monomorphic, what can we say about $f'$?
     \Comdiag{
@@ -575,8 +580,8 @@ homomorphisms exist}{
 \card{Supremum}{
     Least upper bound of a set $S$. For any $s\in S$, the supremum $v$
     \items{
-    \item s\leq v
-    \item If $\exits w \ni s\leq w \forall s\in S$, $v\leq w$.
+    \item $s\leq v$
+    \item If $\exists w \ni s\leq w \forall s\in S$, $v\leq w$.
     }
 }
 

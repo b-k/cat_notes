@@ -153,6 +153,9 @@ worth checking where we are in the pyramid:
     \item Node is a set of objects with their own sets of functions; arrow represents a functor from one context to another
 }
 
+Anything we could say about a hom set, we could say about the near-trivial hom
+set of a single function, so Hom-based diagrams are also Fn-based diagrams.
+
 \subsection{Simpler categories}
 Some of the examples above were for rather large categories, such as all functions on all
 reals, but bear in mind that the same machinery works for categories of only a few objects
@@ -302,11 +305,9 @@ this below.
 Categories are themselves a bundle like the ones from Section \ref{bundlesec}: a set
 of objects paired with a set of morphisms (at this level, functors) between them. So
 they too could be a node in one of the above diagrams, giving us the category of
-categories, ${\bf Cat}$.\footnote{Authors refer to {\em the} category of categories,
-and I'm unclear whether an alternative cat-of-cats exists or what it would look like,
-so we may be at the top here---there's no category of categories of categories.}
-Notice that the rules for functors, having an identity and associativity, is exactly the
-requirement we put on the set of homomorphisms inside of a single category.
+categories, ${\bf Cat}$. Notice that the rules for functors, having an identity and
+associativity, is exactly the requirement we put on the set of homomorphisms inside
+of a single category.
 
 Things are already getting self-referential: ${\bf PrO}\to {\bf Graph}$ is a
 node-and-arrow graph representing an operation involving the set of node-and-arrow
@@ -452,8 +453,16 @@ second category so that
     }
 
 The functors are a natural transformation if, for any two elements of the first category,
-we have $\alpha$s that make this square commute.
- If we have all this, then we have the sort of naturalness we seek: you can
+we have $\alpha$s that make this square commute. We could summarize this with
+\Comdiag[Nat]{F \ar[r]\& G}
+and thus adding a fifth level beyond the four in Section \ref{levelsec}: just as
+functors include mappings of functions to functions, natural transformations include
+mappings of functors to functors. The mapping is known as a 2-category.\footnote{Whatever
+the mappings from natural transformations to natural transformations may be called, you could
+use those to define a 3-category, and so on up the chain.}
+
+
+If we have all this, then we have the sort of naturalness we seek: you can
 start in the $F$-transformed version and walk from $F(a)$ to $F(b)$ and then walk over to
 the $G$-transformed version and get to $G(b)$; or you can commute the order and
 $\alpha$-walk over to the $G$-transformed version first and then from $G(a)$ to $G(b)$.
@@ -612,7 +621,7 @@ Groups: for a group with only one element, that element has to be the multiplica
 Sets: doesn't matter the name of the element, but as above, there can be only one.
 
 Posets: Let the single element in the terminal set be $t$. For any $a$, $a\leq t$. So, $t$
-is $\max(A)$; else if $A$ is inifinite and the terminal set doesn't exist, it seems to me.
+is $\max(A)$; else if $A$ is infinite and the terminal set doesn't exist, it seems to me.
 
 Graphs: we need one vertex and one arrow, and the arrow must therefore have source and
 target equal to that one vertex. A point pointing to itself.
@@ -662,7 +671,7 @@ $B$ loses information about what lives in each section; all information about $B
 accounted for.
 
 If $f$ is both injective and surjective, then we can generate a proper function
-$f^{-1}:B\to A$. I.e., $f$ defines an isomporphism between $A$ and $B$, which must have
+$f^{-1}:B\to A$. I.e., $f$ defines an isomorphism between $A$ and $B$, which must have
 the same number of elements. Note that in the case of infinite sets, we can effectively
 use this as the definition of `same number'.
 
