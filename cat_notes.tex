@@ -148,6 +148,24 @@ worth checking where we are in the pyramid:
     \item Node is a set of objects with their own sets of functions; arrow represents a functor from one context to another
 }
 
+\subsection{Simpler categories}
+Some of the examples above were for rather large categories, such as all functions on all
+reals, but bear in mind that the same machinery works for categories of only a few objects
+and arrows. Say we have a square of four elements and arrows forming the square (however
+you want them), and a functor maps it to all reals and all functions on reals. You've
+selected four elements and the same number of arrows indicating the same relations.
+\citet{leinster:basic} describes this as assigning data to the relation. A simple category
+used for this sort of relation is formally called an {\em index category} or just a {\em diagram}. \label{diagramref}
+
+The trivial version would be to start with the category of a single point (and its
+identity morphism), so mapping to a larger category is equivalent to selecting a single
+element.
+
+Also, the textbooks focus on statements about morphisms that preserve all mappings,
+because those are the tools you want to have, but they are primarily used for situations
+where there are far stronger restrictions, such as those presented in Section
+\ref{bundlesec}, or having retracts and sections as in Section \ref{injectivesec}.
+
 \section{Bundles}\label{bundlesec}
 We're used to thinking in terms of sets comprising atomic elements, but mathematical
 objects are typically a bundle of parts. Non-mathematicians think about the non-negative real numbers
@@ -266,8 +284,8 @@ from a monoid $(S, id, f)$:
 \items{
     \item Objects: following the name {\em monoid}, this category has exactly one object.
 Call it \S.
-    \item Morphisms: For every monoid element $M$, define a morphism $M:\S\to\S$. Include
-an identity element $id: \S\to\S$. That is, the same mapping, $f(\S)=\S$,
+    \item Morphisms: For every monoid element $M$, including $id$, define a morphism $M:\S\to\S$.
+That is, the same mapping, $f(\S)=\S$,
 appears several times in the same category, with each arrow distinguished by different labels.
     \item Composition: $M_1\circ M_2 \equiv f(M_1, M_2)$.
 }
@@ -485,8 +503,22 @@ to $H$. If we have three categories and natural transformations $F$ and $G$ from
 second, and $H$ and $I$ from second to third, then $H\circ F$ must have a natural
 transformation to $G\circ I$.
 
-\subsection{Universal properties}\ref{universalsec}
+\subsection{Universal properties}\label{universalsec}
 A universal is any statement of the form, {\em for all $x$ there exists a unique $y$}.
+The ones the textbooks cover are about diagrams, as defined in Section \ref{diagramref}.
+One diagram imposes a certain shape or set of relations onto some elements of a category.
+Drawing the diagram plus other objects category, you'd have the diagram as one point, and
+one arrow out for each constituent of the diagram, and the result looks like a cone.
+A limit $L$ is the cone such that for all other cones $A$, there exists a unique
+morphism from $A\to L$. A colimit and co-cone goes in the other direction: for all $A$,
+there exists a unique morphism $L\to A$. It is a limit because in the category of all
+cones, with its many morphisms from one cone to another, the limit is on the edge,
+with everything pointing to it.
+
+A limit is ostensibly an expression of a fundamental characteristic of a diagram in a
+category, summarizing information about any morphism from the diagram, and mapping that
+diagram to any elements of the category. On top of this, the same diagram will form a
+limit in multiple categories, providing another level of ostensible unification.
 
 Consider the cross product of two sets, $A\times B$. There is an obvious mapping from
 $A\times B \to A$ and $A\times B \to B$---just drop the unneeded $B$ or $A$ part. Here
@@ -498,7 +530,7 @@ part} functions:
     X \& \& Y \\
 }
 
-This is called a span and can also be turned into a little inline diagram as
+This diagram (in the formal indexing set sense) is called a span and can also be turned into a little inline diagram as
 $X \leftarrow (X\times Y) \rightarrow Y$.
 Of course, there are other things we could put at the top of the fork, some other
 set $A$ that maps both ways: $X \leftarrow A \rightarrow Y$.
@@ -529,11 +561,11 @@ arrows from one pair to another if either base graph had an arrow for its corres
 vertices. Projecting back to the original graphs would also be to just drop the other
 dimension.
 
-Groups seem awkward to me because they reveal how the $X\times Y \to X$ mapping isn't
+Groups reveal how the $X\times Y \to X$ homomorphism isn't
 necessarily so neat. For $(\Re, \cdot)$ and the span $3 \leftarrow 3\times 4 \rightarrow 4$, the
 first arrow is $f_1(x)=x/4$ and the second $f_2(x)=x/3$, which is not especially general.
-But then, recall that even identity arrows are item specific: the arrow $3\to 3$ and $4\to
-4$ are distinct parts of the category of $(\Re, \cdot)$, even though we have a convenient
+But then, recall that even the identity homomorphism has item-specific constituents, like the arrow $3\to 3$ and $4\to
+4$.
 way to express them all collectively.
 
 Anyway, does it work? For any $a$, the arrow $a\to 3$ must be $f_a(a)=3/a$, and the arrow to
@@ -546,7 +578,6 @@ $x$ axis and twelve dots on the $y$ then you'd have twelve $(x,y)$ pairs. When t
 go to infinity, well, we've already got the pattern down for finite elements so don't
 worry about it. Here we have a more formal relationship, that any transformations into $X$
 and into $Y$ have to have a unique corresponding transformation into $x\times y$.
-
 
 
 
@@ -566,7 +597,7 @@ reduces to {\em there exists a unique mapping $A\to X\times Y$} with no addition
 conditions. This brings us to terminal sets.
 
 \paragraph{Terminal sets} A terminal set $T$ is another universal property of a
-category. Here, there exists a unique mapping $A\to T$, for any $A$. Generally, this
+category. Here, there exists a unique functor $A\to T$, for any $A$. Generally, this
 means that the terminal set has one element, so every element of $A$ has to map to
 that single element.
 
@@ -575,7 +606,7 @@ Groups: for a group with only one element, that element has to be the multiplica
 Sets: doesn't matter the name of the element, but as above, there can be only one.
 
 Posets: Let the single element in the terminal set be $t$. For any $a$, $a\leq t$. So, $t$
-is $\max(A)$; else if $A$ is inifinite the terminal set doesn't exist, it seems to me.
+is $\max(A)$; else if $A$ is inifinite and the terminal set doesn't exist, it seems to me.
 
 Graphs: we need one vertex and one arrow, and the arrow must therefore have source and
 target equal to that one vertex. A point pointing to itself.
@@ -595,12 +626,13 @@ transformation that hits both $a$ and $b$ has to go through $a\times b$. Also, i
 have a multiplicative identity, which is the thing such that $a\times id$ is isomorphic
 to $a$ and there is no identity such that 
 
-\section{The injective retraction epic} These are some themes that seemed to repeat at
+\section{The injective retraction epic}\label{injectivesec}
+These are some themes that seemed to repeat at
 different levels. Am not sure about how to fit them in to the overall narrative.
 
 Given a function $f:A\to B$, could we back-trace the arrows to generate a function in the opposite direction $B\to A$?
 
-First, if two elements $a_1$ and $a_2$ have the same target $b_1$, reversing the arrows
+If two elements $a_1$ and $a_2$ have the same target $b_1$, reversing the arrows
 won't give us a function, because a function maps each element to only one target.
 If $f(a_1)=f(a_2) \Rightarrow a_1=a_2$, the function is {\em injective}, and we have our
 condition of each reversed arrow hitting only one target. Note that we must have the size
@@ -625,7 +657,8 @@ accounted for.
 
 If $f$ is both injective and surjective, then we can generate a proper function
 $f^{-1}:B\to A$. I.e., $f$ defines an isomporphism between $A$ and $B$, which must have
-the same number of elements.
+the same number of elements. Note that in the case of infinite sets, we can effectively
+use this as the definition of `same number'.
 
 Injectivity requires that each element of $B$ have at {\em most} one arrow pointing
 to it; surjectivity requires that each element of $B$ have at {\em least} one arrow
@@ -680,7 +713,7 @@ $B$ each pointing to $h(a)$, and $g(a)$ has to choose one of those.
 
 If $f$ has a section $s$, then $g=s\circ h$ and the triangle commutes: $f\circ g =  f\circ s\circ h = 1_B\circ h$.
 
-\subsection{Epimorphisms and monomorphisms}
+\subsection{Epimorphisms and monomorphisms, limits}
 An epimorphism is a function $f$ such that, given this diagram,
 
 \Comdiag{
@@ -703,6 +736,12 @@ $y_1\neq y_2$, it is easy to construct $g_1(z_1)=y_1$ and $g_2(z_1)=y_2$ and the
 condition fails. Injectivity is sufficient because $f$ injective means the reachable
 elements of $Z$ are just relabelings of $Y$.
 
+Epis are limits monos are colimits, as per the discussion of limits above. That fits in
+with the information loss stories above: if you have some scheme that might lose more or
+less information and will still allow the equalization properties above, it'll be
+equivalent to going through the epis and monos, which therefore indicates that those other
+schemes lose as much information.
+
 \subsection{Summary}
 
 Injective:
@@ -710,6 +749,7 @@ Injective:
 \item Every element of the codomain has at most one back-arrow to the domain.
 \item Those elements in the codomain that are pointed to are effectively re-labels of
 the points in the domain.
+\item The domain must have as many or more elements than the codomain.
 \item All information in domain is retained; information could be lost in codomain.
 \item We can write a retraction such that we can get back to the original elements of
 $A$, meaning $r\circ f=1_A$, by just following the arrows back.
@@ -721,6 +761,7 @@ Surjective:
 \item Every element of the codomain has at least one back-arrow to the domain.
 \item The domain may have multiple arrows pointing to the same target, thus splitting the domain
 into sections based on target elements.
+\item The codomain must have as many or more elements than the domain.
 \item All information in codomain is retained; information may be lost from the domain.
 \item We can write a section such that $f\circ s = 1_B$, because surjectivity gives us that each element has an arrow, and if $f(a_1)=f(a_2)=b$,
 just pick one.
@@ -731,6 +772,7 @@ Injective + Surjective = Isomorphism:
 \items{
 \item Every element of codomain has exactly one back-arrow
 \item Codomain elements are unique relabels of domain elements; all codomain labels are used.
+\item Domain and codomain are the same size (for most authors, by definition).
 \item No information in domain or codomain is lost.
 \item We can write $f^{-1}$ such that $f^{-1}\circ f = 1_A$ and $f\circ f^{-1} = 1_B$.
 \item The function $f$ is both epic and monic, as no information is lost on either end.
