@@ -73,32 +73,37 @@ it is vacuous.
 \paragraph{Level 1: Objects=Elements}
 We can draw this function via arrows, maybe
 
-\begin{center}
+\begin{equation}
 \begin{tikzcd}[row sep=tiny]
     a_1 \ar[rd] & b_1\\
     a_2 \ar[r] & b_2\\
     a_3 \ar[r] & b_3
-\end{tikzcd}
-\end{center}
+\end{tikzcd}\tag{Map}
+\end{equation}
 
 Here, the nodes in the graph are single elements in the sets, and the arrows describe
 where each element goes.
+
+Because of this multi-level issue, I'll mark what the arrows mean in any given diagram
+here with a side-note. In this case, the arrows are mappings, in the next they will be
+functions, and so on down the line.
 
 \paragraph{Level 2: Objects=Sets}
 Level 1 showed elements internal to the sets, and at the next level we'll look externally,
 treating each set as single object.
 The function notation $f:A\to B$ is itself a tiny graph. If there were also a function
-$g:C\to B$, we could construct a diagram that looks like the above element-by-element graph, but with sets at the nodes instead of single elements:
+$g:C\to B$, we could construct a diagram that looks like the above element-by-element
+graph, but with sets at the nodes instead of single elements:
 
-\Comdiag{A \ar[r,"f"]\& B\\
-C \ar[ru, "g"] 
+\Comdiag[Fn]{A \ar[r,"f"]\& B\\
+C \ar[ru, "g"]
 }
 So we've gone up a level: each arrow at this level could be cracked open to reveal
 a bundle of arrows, its own element-by-element diagram like the one we had above.
 
 A closed function $f:A\to A$ maps from a set to itself, so we'd draw it as a loop:
 
-\Comdiag{A\ar[loop right]}
+\Comdiag[Fn]{A\ar[loop right]}
 
 Math in the late 1800s to early 1900s worked at this level, during which axioms
 were developed and used to derive a foundation for anything mathematicians could think of.
@@ -117,12 +122,12 @@ The first diagram with three elements in $A$ and
 three in $B$ could be rewired nine different ways, but it's our choice and we can include
 one to nine functions as desired.  We would draw these
 bundles as
-\Comdiag{A \ar[r,"\Hom{set}"]\& B}
+\Comdiag[Hom]{A \ar[r,"\Hom{set}"]\& B}
 
 I think of this arrow as a bundle of quivering wires, each with its own power. If this were anime
 they'd be tentacles. But there is indeed a lot of power there: with \Re\ representing the
 real numbers, we can now summarize all real one-variable functions with the diagram 
-\Comdiag{\Re\ar[loop right]}
+\Comdiag[Hom]{\Re\ar[loop right]}
 
 \paragraph{Level 4, Functors: Objects=categories}
 We are approaching the level at which category theory speaks. But we can go one step
@@ -131,7 +136,7 @@ now it is a single node in our graph. Let the above loop of all functions $f:\Re
 be $\bf R$, and let's keep its company with the set of all functions on the natural
 numbers, $g:\Nat\to\Nat$, notated {\bf N}.
 
-\Comdiag{{\bf N}\ar[r, "F"] \& {\bf R}}
+\Comdiag[Fnctr]{{\bf N}\ar[r, "F"] \& {\bf R}}
 
 Here, the arrow is a {\em functor}, which is a bundle of two sets of arrows at once:
 one to map elements of $\Nat$ to elements of $\Re$, and one to map the functions
@@ -368,7 +373,7 @@ $f_2:B\to B'$. See the flash cards for formalization.
 Here is a diagram including both
  the functions to map a multiset $(E, B, \pi)$ to another, and
 the $\pi$ functions inside the multisets:
-\Comdiag{E \ar[r, "f_1"] \ar[d, "\pi"'] \& E'  \ar[d, "\pi'"]\\
+\Comdiag[Fn]{E \ar[r, "f_1"] \ar[d, "\pi"'] \& E'  \ar[d, "\pi'"]\\
         B \ar[r, "f_2"'] \& B'
     }
 
@@ -408,7 +413,7 @@ number makes no sense, and not all books have a classification in every system,
 so out of the full cross of all pairs $(d, l)$, we will write down the relatively
 small list of pairs that are about the same book, herein $D\times_B L$.  Finally,
 we have commutativity:
-\Comdiag{D\times_B L \ar[r] \ar[d] \& L  \ar[d]\\
+\Comdiag[Fn]{D\times_B L \ar[r] \ar[d] \& L  \ar[d]\\
         D \ar[r] \& B
     }
 This is a {\em pullback}. There is information in the pairing, and maybe even
@@ -442,7 +447,7 @@ With that caveat and context in mind, pick two elements from the first category,
 and $b$, and a mapping $h:a\to b$.  We want mappings $\alpha_a$ and $\alpha_b$ in the
 second category so that
 
-\Comdiag{F(a)  \ar[r, "\alpha_a"] \ar[d, "F(h)"] \& G(a)  \ar[d, "G(h)"]\\
+\Comdiag[Funct]{F(a)  \ar[r, "\alpha_a"] \ar[d, "F(h)"] \& G(a)  \ar[d, "G(h)"]\\
         F(b) \ar[r, "\alpha_b"] \& G(b)
     }
 
@@ -485,10 +490,10 @@ If we wanted to start with a category with more than two elements, we would need
 that this relation holds for {\em any} pair of elements with an arrow between them.
 
 \subsection{Chaining}
-Further, all these commutative diagrams chain together. If we had English ($E$), Portuguese ($E'$), and
-Russian  ($E''$) corpora, we could draw:
+Further, all these commutative diagrams, for functions and functors, chain together. If
+we had English ($E$), Portuguese ($E'$), and Russian  ($E''$) corpora, we could draw:
 
-\Comdiag{E \ar[r, "f_1"] \ar[d, "\pi"'] \& E'   \ar[r, "f_3"] \ar[d, "\pi'"] \& E'' \ar[d, "\pi''"]\\
+\Comdiag[Fn]{E \ar[r, "f_1"] \ar[d, "\pi"'] \& E'   \ar[r, "f_3"] \ar[d, "\pi'"] \& E'' \ar[d, "\pi''"]\\
         B \ar[r, "f_2"'] \& B' \ar[r, "f_4"'] \&B''
     }
 
@@ -525,9 +530,9 @@ $A\times B \to A$ and $A\times B \to B$---just drop the unneeded $B$ or $A$ part
 is the shape of this as a diagram, with $\pi_1$ and $\pi_2$ being the {\em drop one
 part} functions:
 
-\Comdiag{
+\Comdiag[Hom]{
         \& X\times Y \ar[dl,"\pi_1"'] \ar[dr,"\pi_2"] \\
-    X \& \& Y \\
+    X \& \& Y
 }
 
 This diagram (in the formal indexing set sense) is called a span and can also be turned into a little inline diagram as
@@ -537,10 +542,11 @@ set $A$ that maps both ways: $X \leftarrow A \rightarrow Y$.
 But $X\times Y$ is unique in this capacity because every $A$ and its span can be expressed
 via a morphism to $X\times Y$. Here is the commutative diagram:
 
- \Comdiag{
+ \Comdiag[Hom]{
+    \& A \ar[dddl, "\forall f"'] \ar[dddr, "\forall g"] \ar[dd, dashrightarrow, "f\times g"]\\
+\\
         \& X\times Y \ar[dl,"\pi_1"'] \ar[dr,"\pi_2"] \\
-    X \& \& Y \\
-    \& A \ar[ul, "\forall f"] \ar[ur, "\forall g"'] \ar[uu, dashrightarrow, "f\times g"]
+    X \& \& Y
     }
 
 As per the annotation in the diagram, the $A\to (X\times Y)$ morphism is trivial to generate as
@@ -684,12 +690,12 @@ So we have a retraction iff $f$ is injective; a section iff $f$ is surjective.
 \subsection{Determination and choice}
 
 \cite{lawvere:conceptual} recommend drawing the retraction as
-\Comdiag{ \& B\ar[dr,dashrightarrow,"r"]\\
+\Comdiag[Fn]{ \& B\ar[dr,dashrightarrow,"r"]\\
 A\ar[ur,"f"]\ar[rr,"id_A"]\&\&A
 }
 because now we can generalize to the determination or extension problem: does there exist
 a function $g:B\to C$ to fill in this diagram:
-\Comdiag{ \& B\ar[dr,dashrightarrow,"g"]\\
+\Comdiag[Fn]{ \& B\ar[dr,dashrightarrow,"g"]\\
 A\ar[ur,"f"]\ar[rr,"h"]\&\&C
 }
 it's called a determination problem because $f(a)$ needs to be sufficient to derive
@@ -700,12 +706,12 @@ help us.
 If $f$ does have a retraction $r$, then $g=h\circ r$ and the triangle commutes: $g\circ f =  h\circ r\circ f = h\circ 1_A$.
 
 Similarly, draw the section as
-\Comdiag{ \& B\ar[dr,"f"]\\
+\Comdiag[Fn]{ \& B\ar[dr,"f"]\\
 A\ar[ur,dashrightarrow,"s"]\ar[rr,"id_A"]\&\&A
 }
 because now we can generalize to the choice or lifting problem: does there exist
 a function $f:A\to B$ to fill in this diagram:
-\Comdiag{ \& B\ar[dr,"f"]\\
+\Comdiag[Fn]{ \& B\ar[dr,"f"]\\
 A\ar[ur,dashrightarrow,"g"]\ar[rr,"h"]\&\&C
 }
 The same sectioning story holds in the general case. There could be multiple elements of
@@ -716,7 +722,7 @@ If $f$ has a section $s$, then $g=s\circ h$ and the triangle commutes: $f\circ g
 \subsection{Epimorphisms and monomorphisms, limits}
 An epimorphism is a function $f$ such that, given this diagram,
 
-\Comdiag{
+\Comdiag[Hom]{
     X \arrow[r,"f"] \&Y \arrow[r, shift left,"g_1"] \arrow[r,"g_2"'] \& Z
 }
 
@@ -728,7 +734,7 @@ once we've reduced it to one representative in $Y$ per section, we won't need to
 the details of each section.
 
 $F$ is {\em monic} or {\em mono} iff $f \circ g_1 = f \circ g_2 \Rightarrow g_1 = g_2$ in:
-\Comdiag{
+\Comdiag[Hom]{
     Z \arrow[r, shift left,"g_1"] \arrow[r,"g_2"'] \&Y \arrow[r,"f"] \& X
 }
 Now a failure of injectivity kills the requirement, because if $f(y_1)=f(y_2)$ for

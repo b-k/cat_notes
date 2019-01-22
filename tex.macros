@@ -31,12 +31,12 @@
     \end{itemize}
 }
 
-\long\def\Comdiag#1{
-\begin{center}
+\newcommand\Comdiag[2][]{
+\begin{equation}
 \begin{tikzcd}[ampersand replacement=\&]
-#1
-\end{tikzcd}
-\end{center}
+#2
+\end{tikzcd}         \tag{#1}
+\end{equation}
 }
 
 \def\Hom#1{\ensuremath {\rm Hom}_{\rm \bf #1}}
