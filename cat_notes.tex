@@ -101,7 +101,7 @@ C \ar[ru, "g"]
 So we've gone up a level: each arrow at this level could be cracked open to reveal
 a bundle of arrows, its own element-by-element diagram like the one we had above.
 
-A closed function $f:A\to A$ maps from a set to itself, so we'd draw it as a loop:
+A function mapping from a set to itself (aka an {\em epimorphism}, $f:A\to A$, would be drawn as a loop:
 
 \Comdiag[Fn]{A\ar[loop right]}
 
@@ -114,14 +114,16 @@ structure than just sets and mappings, and is one of the things that led to cate
 theory. More below.
 }
 
-\paragraph{Level 3, Categories: Bundling functions}
+\paragraph{Level 3, Categories: Bundling functions} \label{homsetsec}
 But we can bundle further. In the last
 diagram we had a single function. But consider a collection of mappings (aka homomorphisms)
 from set $A$ to set $B$, $\Hom{set}(A, B)$.
 The first diagram with three elements in $A$ and
 three in $B$ could be rewired nine different ways, but it's our choice and we can include
-one to nine functions as desired.  We would draw these
-bundles as
+one to nine functions as desired. Generally, if you start with $X$ elements and each
+points to one of $Y$ elements in the target set, you can have $Y^X$ combinations, so 
+$\Hom{set}(X, Y)$ is sometimes written as $Y^X$.  We could gather these bundles into one
+arrow:
 \Comdiag[Hom]{A \ar[r,"\Hom{set}"]\& B}
 
 I think of this arrow as a bundle of quivering wires, each with its own power. If this were anime
@@ -130,7 +132,7 @@ real numbers, we can now summarize all real one-variable functions with the diag
 \Comdiag[Hom]{\Re\ar[loop right]}
 
 \paragraph{Level 4, Functors: Objects=categories}
-We are approaching the level at which category theory speaks. But we can go one step
+But we can go one step
 further, and put a bundle of objects plus bundle of homomorphisms into a box as well, and
 now it is a single node in our graph. Let the above loop of all functions $f:\Re\to\Re$
 be $\bf R$, and let's keep its company with the set of all functions on the natural
@@ -160,7 +162,16 @@ set of a single function, so Hom-based diagrams are also Fn-based diagrams.
 Some of the examples above were for rather large categories, such as all functions on all
 reals, but bear in mind that the same machinery works for categories of only a few objects
 and arrows. Say we have a square of four elements and arrows forming the square (however
-you want them), and a functor maps it to all reals and all functions on reals. You've
+you want them), and a functor maps it to all reals and all functions on reals. That map
+lands on four objects and four arrows in the target category of reals, maybe
+
+\Comdiag{A \ar[r] \& B \ar[d]  \ar[rr,Rightarrow] \& \&  1 \ar[r,"2x"] \& 2 \ar[d, "x+3"]\\
+        C\ar[u]\& D\ar[l]                         \&\&  25\ar[u,"\sqrt{x-9}-3"]\& 5\ar[l,"x^2"]
+}
+
+We can't select at random: we will have a rule that if we have an arrow $A\to B$, and
+select $A\to 1$ and $B\to 2$, the arrow will have to be something in the set of arrows
+of the form $1\to 2$. We've
 selected four elements and the same number of arrows indicating the same relations.
 \citet{leinster:basic} describes this as assigning data to the relation. A simple category
 used for this sort of relation is formally called an {\em index category} or just a {\em diagram}. \label{diagramref}
@@ -169,10 +180,9 @@ The trivial version would be to start with the category of a single point (and i
 identity morphism), so mapping to a larger category is equivalent to selecting a single
 element.
 
-Also, the textbooks focus on statements about morphisms that preserve all mappings,
-because those are the tools you want to have, but they are primarily used for situations
-where there are far stronger restrictions, such as those presented in Section
-\ref{bundlesec}, or having retracts and sections as in Section \ref{injectivesec}.
+Going beyond diagrams, we can also select characteristics from infinite sets,
+such as the sorts of restrictions presented in Section
+\ref{bundlesec}, or requiring retracts and sections as in Section \ref{injectivesec}.
 
 \section{Bundles}\label{bundlesec}
 We're used to thinking in terms of sets comprising atomic elements, but mathematical
@@ -213,7 +223,7 @@ negative numbers, so no inverses) and $(\Re^+, \cdot)$ is a group.
 
 Associativity and identity are going to be part of the definition of categories,
 so there won't be a lot of discussion of things on the list before monoids.
-Groups are reserved for contexts where the sense of reversibility or symmetry make sense.
+Groups are reserved for contexts where we want a sense of reversibility or symmetry.
 
 \subsection{Completing a group; freedom} Say we have an element $a$ and some function $f$. If
 $f(a,a)=a$, then we have a complete group or monoid, with $a$ the identity and its own
@@ -317,9 +327,7 @@ love this stuff.
 
 \subsection{Types} Consider the sets $\Re$, $\Nat$, and strings of letters A-Z, and the
 category of mappings between these three objects. This is the beginning of a description
-of a programming language. C basically runs entirely on these three types. Functions often
-work on structures that combine these types---at the least, arrays of several
-elements---which we can achieve by currying, but I'm not getting in to that. But just as a
+of a programming language. C basically runs entirely on these three types. But just as a
 free monoid is a path along a set of elements, a program is a path selecting some
 functions from the category listing all options. This seems like a nice way of thinking
 about a lot of different types of categories.
@@ -356,6 +364,67 @@ without dealing with the graph elements $V$, $A$, $src$, and $tgt$ at all.
 For me, I initially did it wrong with trees, because I did a proof-by-picture using
 a finite tree with minimum elements, but from the perspective of a partial order the
 full proof came more easily.
+
+\subsection{Functions of two variables} All of our arrows map from one object to one
+object, so what do we do with functions with two inputs, $f(x_1, x_2)=y$? There are two
+approaches: cross-products and currying.
+
+The first is to define an object which is the cross-product of other objects:
+
+\Comdiag[Hom]{
+a\ar[rd]\\
+\& a\times b \ar[r,"{f(a,b)}"] \& y\\
+b\ar[ru] 
+}
+
+Here we have a grid of values, and each maps to $y$.
+This diagram has to live at the hom-set level, because if there are three values of $b$,
+for example, then each value of $a$ points to three values of $a\times b$.
+
+The second alternative is {\em currying}, in which we treat functions as objects
+themselves. Before we get to that, we'll need exponentiation and an evaluation function.
+As per Section \ref{homsetsec}, there are $B^A$ possible arrows in $\Hom{set}(A, B)$, so
+the hom set is often written using that notation. If you gave me that set and a specific
+value of $A$, I could find the given arrow(s) and follow it to an element/elements of $B$.
+This is the {\em evaluation function}:
+\Comdiag[Hom]{
+B^A\times A \ar[r, "ev"] \& B
+}
+
+A category {\em has exponentiation} if for any $A, B$, we have $B^A$ and there exists
+an evaluation function, and for all objects $C$ 
+$g:C\times A \to B$, there is a unique $\hat g:C\to B^A$ so this commutes:
+
+\Comdiag[Hom]{
+    B^A\times A \ar[dr, "ev"] \\
+        \& B\\
+    C\times A \ar[uu, dashrightarrow, "\hat g\times {\bf 1}_A"] \ar[ur, "g"]
+}
+
+This is a {\em limit}; see section \ref{universalsec}. It
+says that if you have whatever $C\times A$ that maps to $B$, then $C$ implicitly defines a
+function in $\hom{set}(A,B)$. This drives home the point that mappings can be expressed as
+objects like any other.
+
+That lets us break down $f(a,b)=c$ into components.
+Define mappings that select from a set of functions, say $A\to C^B$,
+which selects a function $f:B\to C$ for a given value of $A$. Then the full chain
+\Comdiag[Hom]{
+A \ar[r] \& C^B \ar[r] \& C^B \times B \ar[r, "ev"] \& C\\
+B \ar[urr]
+}
+
+In fact, we have two such paths, which are equivalent; more on this below.
+
+\Comdiag[Hom]{
+A \ar[r] \ar[drr] \& C^B \ar[r] \& C^B \times B \ar[r, "ev"] \& C\\
+B \ar[urr] \ar[r] \& C^A \ar[r] \& C^A \times A \ar[ru, "ev"']
+}
+
+This rendition explicitly shows that marginal functions exist. Though, we write
+our own categories, so I suppose we could write one where $f:A\times B\to C$ exists,
+but we don't bother to include the marginal functions $C^B$ or $C^A$ as elements.
+
 
 \section{Where commuting gets us} It's already potentially interesting that we can
 express mappings between different concepts like orderings and graphs, but things get more
@@ -751,11 +820,18 @@ $y_1\neq y_2$, it is easy to construct $g_1(z_1)=y_1$ and $g_2(z_1)=y_2$ and the
 condition fails. Injectivity is sufficient because $f$ injective means the reachable
 elements of $Z$ are just relabelings of $Y$.
 
-Epis are limits monos are colimits, as per the discussion of limits above. That fits in
-with the information loss stories above: if you have some scheme that might lose more or
-less information and will still allow the equalization properties above, it'll be
-equivalent to going through the epis and monos, which therefore indicates that those other
-schemes lose as much information.
+Epis are limits and monos are colimits, as per the discussion of limits above. The diagram
+that is the basis of the cone is $\cdot \to \cdot$, and the pair of cones is
+\Comdiag[Hom]{
+    X \arrow[r,"f"] \&Y \arrow[r, shift left,"g_1"] \arrow[r,"g_2"'] \& Z\\
+   A \ar[u,dashrightarrow,"j"] \ar[ur, "h"]
+}
+So if you have some other mapping from $A$ such that $g_1\circ h\cong g_2\circ h$,
+there has to be a way to get there through $f$, $g_1\circ f\circ j \cong g_2\circ f\circ
+j$. That is, however you sectioned $X$, you'll have to section $Y$ in an analogous way and
+can't be either more or less clever about it.
+
+Monos as colimits tell a similar story, with the diagram appropriately reversed.
 
 \subsection{Summary}
 
