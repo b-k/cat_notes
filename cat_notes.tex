@@ -28,7 +28,7 @@ contexts relate.
 algebraic topology should be metaphorical cake.
 \item There is a trend in programming languages toward languages whose theory is based on
 a category of types.  Out-of-fashion languages
-are written in terms of procedures: plug 4 into the square functions and we do some
+are written in terms of procedures: plug 4 into the square function and we do some
 things and return 16. Languages oriented toward mathematical functions encourage a
 thinking that is far more still: the square of 4 is 16 and always has been and always
 will be.
@@ -66,7 +66,8 @@ mappings and work up.
 
 \section{Leveling up}\label{levelsec}
 
-A function $f:A\to B$, aka a mapping, assigns a value to all of the elements in the set $A$ to
+A function $f:A\to B$, aka a mapping, assigns a value to all of the elements in the set (or group of
+elements) $A$ to
 some element(s) in the set $B$. Note that if $A=\{\emptyset\}$ then you still have a function, though
 it is vacuous.
 
@@ -105,8 +106,7 @@ A function mapping from a set to itself (aka an {\em epimorphism}, $f:A\to A$, w
 
 \Comdiag[Fn]{A\ar[loop right]}
 
-Math in the late 1800s to early 1900s worked at this level, during which axioms
-were developed and used to derive a foundation for anything mathematicians could think of.
+Basically all the math people use day to day (trigonometry, calculus, \dots) is at this level.
 \comment{
 One of the big sticking points was Russel's paradox: given $S$= the set of all sets that
 do not include themselves, is $S$ an element of $S$? This showed that we need more
@@ -131,20 +131,34 @@ they'd be tentacles. But there is indeed a lot of power there: with \Re\ represe
 real numbers, we can now summarize all real one-variable functions with the diagram 
 \Comdiag[Hom]{\Re\ar[loop right]}
 
-\paragraph{Level 4, Functors: Objects=categories}
+\paragraph{Level 4, Functors: Objects=hom sets}
 But we can go one step
 further, and put a bundle of objects plus bundle of homomorphisms into a box as well, and
 now it is a single node in our graph. Let the above loop of all functions $f:\Re\to\Re$
-be $\bf R$, and let's keep its company with the set of all functions on the natural
+be $\bf R$, and let's keep it company with the set of all functions on the natural
 numbers, $g:\Nat\to\Nat$, notated {\bf N}.
 
 \Comdiag[Fnctr]{{\bf N}\ar[r, "F"] \& {\bf R}}
+
 
 Here, the arrow is a {\em functor}, which is a bundle of two sets of arrows at once:
 one to map elements of $\Nat$ to elements of $\Re$, and one to map the functions
 $\Nat\to \Nat$ to functions $\Re\to \Re$. [There are additional restrictions; see
 below.] Custom is to write these with capital letters, to contrast with typically
 lower-case functions.
+
+\paragraph{Level 5, Natural transformations: Objects=categories}
+It's natural to ask, then, why not bundle further and consider mappings from functors to functors?
+It only makes sense to map functors if you are bringing the sets of objects with them, so natural
+transformations are across category diagrams.
+
+\Comdiag[Nat]{A \ar[d, "F"]\ar[r] \& A' \ar[d, "F'"]  \\
+        B\ar[r]\& B'
+}
+
+This is called a 2-category.
+We could follow the pattern further, up to 3-Categories \&c., but it seems most people stop at
+natural transformations.
 
 All these diagrams look alike, so for any diagram you come across in a textbook, it's
 worth checking where we are in the pyramid:
@@ -153,6 +167,7 @@ worth checking where we are in the pyramid:
     \item Node is a set; arrow represents a set of mappings from one set to another, aka a function
     \item Node is a set; arrow represents a set of functions from one set to another
     \item Node is a set of objects with their own sets of functions; arrow represents a functor from one context to another
+    \item Node is a category diagram; arrow represents a mapping from one category to another.
 }
 
 Anything we could say about a hom set, we could say about the near-trivial hom
@@ -176,9 +191,10 @@ selected four elements and the same number of arrows indicating the same relatio
 \citet{leinster:basic} describes this as assigning data to the relation. A simple category
 used for this sort of relation is formally called an {\em index category} or just a {\em diagram}. \label{diagramref}
 
-The trivial version would be to start with the category of a single point (and its
-identity morphism), so mapping to a larger category is equivalent to selecting a single
-element.
+\paragraph{The selector}
+If you had a category with a single element, and a second with who knows how many point, than a
+function from the one-element category to the other is a selector.
+The hom-set from a one-category set is then the set of element selectors.
 
 Going beyond diagrams, we can also select characteristics from infinite sets,
 such as the sorts of restrictions presented in Section
@@ -524,11 +540,11 @@ second category so that
 The functors are a natural transformation if, for any two elements of the first category,
 we have $\alpha$s that make this square commute. We could summarize this with
 \Comdiag[Nat]{F \ar[r]\& G}
-and thus adding a fifth level beyond the four in Section \ref{levelsec}: just as
+and thus reaching the fifth level in Section \ref{levelsec}: just as
 functors include mappings of functions to functions, natural transformations include
-mappings of functors to functors. The mapping is known as a 2-category.\footnote{Whatever
-the mappings from natural transformations to natural transformations may be called, you could
-use those to define a 3-category, and so on up the chain.}
+mappings of functors to functors. Objects that aren't maps are {\em $0$-categories},
+Maps between $0$-categories are {\em $1$-categories}, making these maps between 
+$1$-categories {\em $2$-categories}.
 
 
 If we have all this, then we have the sort of naturalness we seek: you can
@@ -536,36 +552,9 @@ start in the $F$-transformed version and walk from $F(a)$ to $F(b)$ and then wal
 the $G$-transformed version and get to $G(b)$; or you can commute the order and
 $\alpha$-walk over to the $G$-transformed version first and then from $G(a)$ to $G(b)$.
 
-Here is a failed attempt.
-Consider the category consisting of a single object $a$, one named $b$, and an arrow $a\to
-b$. We would like to map this category to ordered natural numbers, $(\Nat, \leq)$, with
-$\leq$ by its usual meaning. Here are two functors we can try to naturally transform:
-\begin{eqnarray*}
-    F(a) = 2 &;& G(a) = 3\\
-    F(b) = 5 &;& G(b) = 4
-\end{eqnarray*} 
-Both $2 \leq 5$ and $3 \leq 4$ are arrows that exist in the target category, so we have
-valid places to which we can map the relation $1\leq 2$ and so we have two valid functors.
-
-But to have a natural transformation from the $F$ functor to the $G$ functor, we need
-to find those two $\alpha$s to complete the square. As noted above, they
-they have to be part of the set of mappings at the $(\Nat, \leq)$ category that both
-functors map to. There is an arrow $2\to 3$ in that category, so we can do the walk
-of $F(A) \to G(A) \to G(B)$, or $2 \leq 3 \leq 4$.  But we don't have $5\leq 4$,
-so the walk from $F(A)\to F(B) \to G(B)$ isn't possible using the arrows the target
-category gave us.
-
-Given that all our arrows go uphill, we will need transformations where $F(A)$ is downhill
-from both intermediate points $G(A)$ and $F(B)$, and $G(B)$ is uphill from both
-intermediate points. For example, given
-\begin{eqnarray*}
-    F(a) = 2 &;& G(a) = 3\\
-    F(b) = 4 &;& G(b) = 5
-\end{eqnarray*} 
-there is a natural transformation from $F$ to $G$ (but not from $G$ to $F$).
-
-If we wanted to start with a category with more than two elements, we would need to show
-that this relation holds for {\em any} pair of elements with an arrow between them.
+Just because you have $X$ and $Y$ and a nice mapping $X_F\to Y_F$ in the $F$-space doesn't mean there's a corresponding 
+mapping in $G$-space $X_G\to Y_G$.
+Not all categories have all mapping, so one must verify that all the parts are present.
 
 \subsection{Chaining}
 Further, all these commutative diagrams, for functions and functors, chain together. If
@@ -586,21 +575,44 @@ to $H$. If we have three categories and natural transformations $F$ and $G$ from
 second, and $H$ and $I$ from second to third, then $H\circ F$ must have a natural
 transformation to $G\circ I$.
 
-\subsection{Universal properties}\label{universalsec}
-A universal is any statement of the form, {\em for all $x$ there exists a unique $y$}.
-The ones the textbooks cover are about diagrams, as defined in Section \ref{diagramref}.
-One diagram imposes a certain shape or set of relations onto some elements of a category.
-Drawing the diagram plus other objects category, you'd have the diagram as one point, and
-one arrow out for each constituent of the diagram, and the result looks like a cone.
-A limit $L$ is the cone such that for all other cones $A$, there exists a unique
-morphism from $A\to L$. A colimit and co-cone goes in the other direction: for all $A$,
-there exists a unique morphism $L\to A$. It is a limit because in the category of all
-cones, with its many morphisms from one cone to another, the limit is on the edge,
-with everything pointing to it.
+\subsection{Initial, final, terminal}
+An {\em initial object} is one such that there exists exactly one morphism from this object to any other object.
+A {\em final object} is one such that there exists exactly one morphism to this object from any other object.
+Or if you're feeling vague, you can call these {\em terminal objects} without specifying direction.
 
-A limit is ostensibly an expression of a fundamental characteristic of a diagram in a
-category, summarizing information about any morphism from the diagram, and mapping that
-diagram to any elements of the category. On top of this, the same diagram will form a
+For example, if we have the ordering of the positive integers $\leq$, then one is a final object
+and there is no initial object.
+
+\subsection{Universal properties}\label{universalsec}
+\citet{aluffi:zero} points out that universal properties are terminal objects, in an appropriate
+space of shapes.
+Those shapes are {\em cones}, constructed in a few steps (I'm following \citet{milewski:pigs} ch 12).
+Start with a diagram: a category with a few representative elements, like maybe two points; call them
+$x_1, x_2, \dots$.
+Then pick a point $C$ in the target category, which is intended to be much larger than the diagram.
+Now map each element the diagram to both a respective point in the target space $x_1^F, x_2^F, \dots$, and to $c$. For this to be a
+natural transformation, you'll also need the arrows $c\to x_1^F, c\to x_2^F, \dots$.
+This is where the name {\em cone} comes in, as we now have a point $c$ at the top of the cone, lines
+from that top to all the images of the diagram, and as typically drawn a pyramid floor of all the maps from category to
+diagram.
+
+The question, though, is whether there is, within the space of valid cone-tops $c$, a terminal value.
+
+For the empty diagram, with no arrows coming into the target category, $c$ is a terminal cone-top
+iff it is a terminal point.
+E.g., as above, in positive integers, one is a valid option for $c$.
+
+
+With two points coming in, the limit is the product; see below.
+
+A colimit and co-cone goes in the other direction:
+now run arrows $c\leftarrow x_1^F, c\leftarrow x_2^F, \dots$.
+
+These terminal nodes are often referred to as {\em limits}, in a reference to the topological
+origins of category theory.
+They are also referred to as {\em universal properties}, implying that they're tapping into
+something fundamental and immutable.
+On top of this, the same diagram will form a
 limit in multiple categories, providing another level of ostensible unification.
 
 Consider the cross product of two sets, $A\times B$. There is an obvious mapping from
@@ -650,7 +662,6 @@ necessarily so neat. For $(\Re, \cdot)$ and the span $3 \leftarrow 3\times 4 \ri
 first arrow is $f_1(x)=x/4$ and the second $f_2(x)=x/3$, which is not especially general.
 But then, recall that even the identity homomorphism has item-specific constituents, like the arrow $3\to 3$ and $4\to
 4$.
-way to express them all collectively.
 
 Anyway, does it work? For any $a$, the arrow $a\to 3$ must be $f_a(a)=3/a$, and the arrow to
 $3\times 4$ must be $f_{x}(a)=3\cdot 4/a$. Commutativity works: $f_1\circ f_x(a) = 3\cdot
@@ -722,6 +733,11 @@ If $f(a_1)=f(a_2) \Rightarrow a_1=a_2$, the function is {\em injective}, and we 
 condition of each reversed arrow hitting only one target. Note that we must have the size
 of $B$ greater than or equal to the size of $A$ for this one-to-one property to hold.
 
+\citet{aluffi:zero} reminds us that we can think of functions as a grid: rows are the source points
+in the domain, columns are the destination points in the codomain.
+To be a function, there is exactly one dot in each row.
+To be injective, there is at most one dot in each column.
+
 Injections have a relabeling character to them, where if $f(a_1)=b_1$, then $b_1$ is
 effectively just a renaming of $a_1$. No information about $A$ is lost or merged with
 other information, though some labels in $B$ may not be used and their information
@@ -730,8 +746,10 @@ disappears.
 If there is an element of $B$ that has no arrows pointing to it, then we can't reverse the
 arrows in $f:A\to B$ to get a function $B\to A$, because every element in the source set
 must have some target. If for all elements $b$, there exist some $a$ such that $f(a)=b$,
-then $f$ is surjective, aka {\em onto}. We must have the size of $A$ greater than or equal
+then $f$ is {\em surjective}, aka {\em onto}. We must have the size of $A$ greater than or equal
 to $B$ for this to work.
+
+In \citet{aluffi:zero}'s grid, to be surjective, there is at least one dot in each column.
 
 Surjections have a sectioning character.  Because we know that every $b$ back-maps to some $a$ and some $b$s
 can back-map to multiple $a$s, we could partition the set $A$ into elements that map to $b_1$,
@@ -838,6 +856,7 @@ Monos as colimits tell a similar story, with the diagram appropriately reversed.
 Injective:
 \items{
 \item Every element of the codomain has at most one back-arrow to the domain.
+\item Drawing a function as a grid with domain in rows and codomain in columns, there is at least one dot in each column.
 \item Those elements in the codomain that are pointed to are effectively re-labels of
 the points in the domain.
 \item The domain must have as many or more elements than the codomain.
@@ -850,6 +869,7 @@ $A$, meaning $r\circ f=1_A$, by just following the arrows back.
 Surjective:
 \items{
 \item Every element of the codomain has at least one back-arrow to the domain.
+\item Drawing a function as a grid, there is at most one dot in each column.
 \item The domain may have multiple arrows pointing to the same target, thus splitting the domain
 into sections based on target elements.
 \item The codomain must have as many or more elements than the domain.
